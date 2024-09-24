@@ -11,12 +11,11 @@ export const PersonaHero = () => {
           <VenetianMask size={36} strokeWidth={1.5} /> Persona
         </>
       }
-      description={`  Persona is a representation of a personality that you can use to
-    have a conversation with.`}
+      description={`  Personlighet er en representasjon av en personlighet du kan holde en samtale med.`}
     >
       <HeroButton
-        title="New Persona"
-        description="Create a new personality that you can use to have a conversation with."
+        title="Ny Personlighet"
+        description="Lag en ny personlighet du kan ha en samtale med."
         icon={<VenetianMask />}
         onClick={() =>
           personaStore.newPersonaAndOpen({
@@ -34,15 +33,15 @@ Example:
         }
       />
       <HeroButton
-        title="Translator"
-        description="English to French translator."
+        title="Oversetter"
+        description="Oversettelse norsk til engelsk"
         icon={<Languages />}
         onClick={() =>
           personaStore.newPersonaAndOpen({
-            name: "English to French translator",
+            name: "Norsk til engelsk",
             personaMessage:
-              "You are an expert in translating English to French. You will be provided with a sentence in English, and your task is to translate it into French.",
-            description: "English to French translator.",
+              "You are an expert in translating Norwegian to English. You will be provided with a sentence in Norwegian, and your task is to translate it into English.",
+            description: "Oversettelse norsk til engelsk.",
           })
         }
       />
