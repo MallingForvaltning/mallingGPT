@@ -54,22 +54,22 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent side="right" align="start">
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("bookmark")}
+            onClick={async () => await handleAction("favoritt")}
           >
             <BookmarkCheck size={18} />
             <span>
-              {props.chatThread.bookmarked ? "Remove bookmark" : "Bookmark"}
+              {props.chatThread.bookmarked ? "Fjern favoritt" : "Favoritt"}
             </span>
           </DropdownMenuItemWithIcon>
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("rename")}
+            onClick={async () => await handleAction("slett")}
           >
             <Pencil size={18} />
             <span>Rename</span>
           </DropdownMenuItemWithIcon>
           <DropdownMenuSeparator />
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("delete")}
+            onClick={async () => await handleAction("slett")}
           >
             <Trash size={18} />
             <span>Delete</span>
@@ -80,7 +80,7 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
   );
 };
 
-type DropdownAction = "bookmark" | "rename" | "delete";
+type DropdownAction = "favoritt" | "gi nytt navn" | "slett";
 
 const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
   const { chatThread } = props;
@@ -89,18 +89,18 @@ const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
   const handleAction = async (action: DropdownAction) => {
     setIsLoading(true);
     switch (action) {
-      case "bookmark":
+      case "favoritt":
         await BookmarkChatThread({ chatThread });
         break;
-      case "rename":
-        const name = window.prompt("Enter the new name for the chat thread:");
+      case "gi nytt navn":
+        const name = window.prompt("Skriv nytt navn på samtale:");
         if (name !== null) {
           await UpdateChatThreadTitle({ chatThread, name });
         }
         break;
-      case "delete":
+      case "slett":
         if (
-          window.confirm("Are you sure you want to delete this chat thread?")
+          window.confirm("Er du sikker på at du vil slette denne samtalen?")
         ) {
           await DeleteChatThreadByID(chatThread.id);
         }

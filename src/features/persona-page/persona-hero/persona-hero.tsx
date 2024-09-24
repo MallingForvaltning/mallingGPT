@@ -8,10 +8,10 @@ export const PersonaHero = () => {
     <Hero
       title={
         <>
-          <VenetianMask size={36} strokeWidth={1.5} /> Persona
+          <VenetianMask size={36} strokeWidth={1.5} /> Personlighet
         </>
       }
-      description={`  Personlighet er en representasjon av en personlighet du kan holde en samtale med.`}
+      description={`  Personlighet er en representasjon av en personlighet du kan holde en samtale med. Med andre ord din helt egne AI tilpasset deg.`}
     >
       <HeroButton
         title="Ny Personlighet"
@@ -51,7 +51,7 @@ Example:
         icon={<Atom />}
         onClick={() =>
           personaStore.newPersonaAndOpen({
-            name: "ReactJS Expert",
+            name: "ReactJS-utvikler",
             personaMessage: `You are a ReactJS expert who can write clean functional components. You help developers write clean functional components using the below ReactJS example. 
               \nExample:
 import * as React from "react";

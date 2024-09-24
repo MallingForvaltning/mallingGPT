@@ -35,7 +35,7 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
         ></Hero>
         <div className="container max-w-4xl flex gap-20 flex-col">
           <div>
-            <h2 className="text-2xl font-bold mb-3">Extensions</h2>
+            <h2 className="text-2xl font-bold mb-3">Utvidelser</h2>
 
             {props.extensions && props.extensions.length > 0 ? (
               <div className="grid grid-cols-3 gap-3">
@@ -50,7 +50,7 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
                 })}
               </div>
             ) :
-              <p className="text-muted-foreground max-w-xl">Ingen extentions laget</p>
+              <p className="text-muted-foreground max-w-xl">Ingen utvidelser laget</p>
             }
 
           </div>
@@ -70,7 +70,7 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
                 })}
               </div>
             ) :
-              <p className="text-muted-foreground max-w-xl">Du har ingen personligheter lagret</p>
+              <p className="text-muted-foreground max-w-xl">Du har ikke laget noen personligheter</p>
             }
           </div>
         </div>

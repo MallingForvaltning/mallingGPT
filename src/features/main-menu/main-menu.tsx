@@ -26,7 +26,7 @@ export const MainMenu = async () => {
       <MenuBar>
         <MenuItemContainer>
           <MenuItem tooltip="Home" asChild>
-            <MenuLink href="/chat" ariaLabel="Go to the Home page">
+            <MenuLink href="/chat" ariaLabel="Gå til hjem">
               <Home {...menuIconProps} />
             </MenuLink>
           </MenuItem>
@@ -34,29 +34,29 @@ export const MainMenu = async () => {
         </MenuItemContainer>
         <MenuItemContainer>
           <MenuItem tooltip="Chat">
-            <MenuLink href="/chat" ariaLabel="Go to the Chat page">
+            <MenuLink href="/chat" ariaLabel="Gå til samtaler">
               <MessageCircle {...menuIconProps} />
             </MenuLink>
           </MenuItem>
           <MenuItem tooltip="Persona">
-            <MenuLink href="/persona" ariaLabel="Go to the Persona configuration page">
+            <MenuLink href="/persona" ariaLabel="Gå til personligheter">
               <VenetianMask {...menuIconProps} />
             </MenuLink>
           </MenuItem>
           <MenuItem tooltip="extensions">
-            <MenuLink href="/extensions" ariaLabel="Go to the Extensions configuration page">
+            <MenuLink href="/extensions" ariaLabel="Gå til utvidelser">
               <PocketKnife {...menuIconProps} />
             </MenuLink>
           </MenuItem>
           <MenuItem tooltip="prompts">
-            <MenuLink href="/prompt" ariaLabel="Go to the Prompt Library configuration page">
+            <MenuLink href="/prompt" ariaLabel="Gå til prompt-oversikt">
               <Book {...menuIconProps} />
             </MenuLink>
           </MenuItem>
           {user.isAdmin && (
             <>
               <MenuItem tooltip="reporting">
-                <MenuLink href="/reporting" ariaLabel="Go to the Admin reporting" >
+                <MenuLink href="/reporting" ariaLabel="Gå til rapportering" >
                   <Sheet {...menuIconProps} />
                 </MenuLink>
               </MenuItem>

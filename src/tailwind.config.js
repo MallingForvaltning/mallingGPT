@@ -47,6 +47,20 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
+        mallingBurgund: {
+          DEFAULT: '#3C0025',
+          50: '#F9F5F7',
+          100: '#F4E6EC',
+          200: '#E9D1DB',
+          300: '#D9A6BA',
+          400: '#C77C9A',
+          500: '#B3537A',
+          600: '#8F004B',
+          700: '#5D002F',
+          800: '#3C0025', 
+          900: '#240016',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
