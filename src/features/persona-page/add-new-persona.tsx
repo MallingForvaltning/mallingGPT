@@ -60,7 +60,7 @@ export const AddNewPersona: FC<Props> = (props) => {
     >
       <SheetContent className="min-w-[480px] sm:w-[540px] flex flex-col">
         <SheetHeader>
-          <SheetTitle>Persona</SheetTitle>
+          <SheetTitle>Personlighet</SheetTitle>
         </SheetHeader>
         <form action={formAction} className="flex-1 flex flex-col">
           <ScrollArea
@@ -86,27 +86,27 @@ export const AddNewPersona: FC<Props> = (props) => {
                   required
                   name="name"
                   defaultValue={persona.name}
-                  placeholder="Name of your persona"
+                  placeholder="Navn på personlighet"
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="description">Short description</Label>
+                <Label htmlFor="description">Kort beskrivelse</Label>
                 <Input
                   type="text"
                   required
                   defaultValue={persona.description}
                   name="description"
-                  placeholder="Short description"
+                  placeholder="Kort beskrivelse"
                 />
               </div>
               <div className="grid gap-2 flex-1 ">
-                <Label htmlFor="personaMessage">Personality</Label>
+                <Label htmlFor="personaMessage">Personlighet</Label>
                 <Textarea
                   className="min-h-[300px]"
                   required
                   defaultValue={persona.personaMessage}
                   name="personaMessage"
-                  placeholder="Personality of your persona"
+                  placeholder="Personligheten du ønsker"
                 />
               </div>
             </div>

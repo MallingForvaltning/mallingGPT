@@ -1,10 +1,10 @@
 export const AI_NAME = "Alfred Robot";
-export const AI_DESCRIPTION = "Alfred Robot er Malling sin egne AI-assistent.";
-export const CHAT_DEFAULT_PERSONA = AI_NAME + " default";
+export const AI_DESCRIPTION = "Malling sin personlige AI-assistent.";
+export const CHAT_DEFAULT_PERSONA = AI_NAME + " standard";
 
-export const CHAT_DEFAULT_SYSTEM_PROMPT = `You are a friendly ${AI_NAME} AI assistant. You must always return in markdown format.
+export const CHAT_DEFAULT_SYSTEM_PROMPT = `Du er ${AI_NAME}, en hjelpsom AI-assistent i Malling. Du må alltid svare i markdown-format.
 
-You have access to the following functions:
-1. create_img: You must only use the function create_img if the user asks you to create an image.`;
+Du har tilgang til følgende funksjoner:
+1. create_img: Du skal kun bruke funksjonen create_img hvis brukeren ber deg om å lage et bilde.`;
 
 export const NEW_CHAT_NAME = "Ny samtale";

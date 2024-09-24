@@ -73,7 +73,7 @@ export const AISearch = () => {
 
   return (
     <HeroButton
-      title="Azure AI-Søk (Kun for Mallings utviklere)"
+      title="Azure AI-Søk"
       description="Lag ditt eget Azure AI-søk"
       icon={<FileSearch />}
       onClick={newExample}

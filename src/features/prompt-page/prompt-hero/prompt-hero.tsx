@@ -16,22 +16,22 @@ export const PromptHero = () => {
       }
     >
       <HeroButton
-        title="Add New Prompt"
-        description="Build your own prompt template"
+        title="Lag ny prompt"
+        description="Bygg dine egne prompts"
         icon={<Book />}
         onClick={() => promptStore.newPrompt()}
       />
       <HeroButton
-        title="Whimsical City"
-        description="Image of miniature colourful city "
+        title="Miniatyrbyen"
+        description="Bilde av fremtidens eiendom"
         icon={<BookImage />}
         onClick={() =>
           promptStore.updatePrompt({
             createdAt: new Date(),
             id: "",
-            name: "Whimsical City",
+            name: "Miniatyrbyen",
             description:
-              "Create A miniature city with colourful buildings and green trees with [iconic building]. The [iconic building] is in the centre of the image, surrounded by a blurred background with lots of [Native tree name] trees. The image has a dreamy and whimsical mood, with a shallow depth of field and a high angle view. The city looks like a toy or a model, with different styles and shapes of buildings.",
+              "Skap en miniatyrby med fargerike bygninger og grønne trær med [ikonisk bygning]. Den [ikoniske bygningen] står i midten av bildet, omgitt av en uklar bakgrunn med mange [innfødt tresort] trær. Bildet har en drømmende og eventyrlig stemning, med lav dybdeskarphet og et perspektiv sett fra høy vinkel. Byen ser ut som et leketøy eller en modell, med ulike stiler og former på bygningene.",
             isPublished: false,
             type: "PROMPT",
             userId: "",
@@ -39,26 +39,27 @@ export const PromptHero = () => {
         }
       />
       <HeroButton
-        title="Problem Framing"
-        description="Problem Framing for a new product"
+        title="Problemformulering"
+        description="Problemformulering for et nytt produkt"
         icon={<NotebookPen />}
         onClick={() =>
           promptStore.updatePrompt({
             createdAt: new Date(),
             id: "",
-            name: "Problem Framing",
+            name: "Problemformulering",
             description: `
-Given the following problem statement:
-[PROBLEM STATEMENT]
+Gitt følgende problemstilling:
+[PROBLEMSTILLING]
 
-Generate a response with the following points:
-1. Problem framing
-2. Solution overview and recommendations 
-3. List down the recommended MVP Scope
-4. How to ensure user adoption
-5. How to measure success 
-8. List down similar products
-9. Potential sponsor question (5 questions) 
+Generer en respons med følgende punkter:
+
+Problemformulering
+Løsningsoversikt og anbefalinger
+Anbefalt omfang for MVP (Minimum Viable Product)
+Hvordan sikre brukeradopsjon
+Hvordan måle suksess
+Liste over lignende produkter
+Potensielle spørsmål til sponsor (5 spørsmål) 
               `,
             isPublished: false,
             type: "PROMPT",

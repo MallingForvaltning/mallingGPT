@@ -89,7 +89,7 @@ export const AddExtension: FC<Props> = (props) => {
                   required
                   defaultValue={extension.description}
                   name="description"
-                  placeholder="Short description"
+                  placeholder="Kort beskrivelse"
                 />
               </div>
               <div className="grid gap-2">

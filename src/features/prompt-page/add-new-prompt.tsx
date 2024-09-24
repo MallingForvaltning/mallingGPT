@@ -72,23 +72,23 @@ export const AddPromptSlider: FC<SliderProps> = (props) => {
                 </>
               )}
               <div className="grid gap-2">
-                <Label>Name</Label>
+                <Label>Navn</Label>
                 <Input
                   type="text"
                   required
                   name="name"
                   defaultValue={prompt.name}
-                  placeholder="Name of the prompt"
+                  placeholder="Navn på prompt"
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="description">Short description</Label>
+                <Label htmlFor="description">Kort beskrivelse</Label>
                 <Textarea
                   required
                   defaultValue={prompt.description}
                   name="description"
                   className="h-96"
-                  placeholder="eg: Write a funny joke that a 5 year old would understand"
+                  placeholder="eg: Lag en sjekkliste for overtakelse av en næringseiendom på 10 punkter"
                 />
               </div>
             </div>

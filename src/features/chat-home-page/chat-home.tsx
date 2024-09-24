@@ -50,7 +50,7 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
                 })}
               </div>
             ) :
-              <p className="text-muted-foreground max-w-xl">Ingen utvidelser laget</p>
+              <p className="text-muted-foreground max-w-xl">Du har ikke laget noen utvidelser</p>
             }
 
           </div>

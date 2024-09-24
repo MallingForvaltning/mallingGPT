@@ -65,7 +65,7 @@ export const BingSearch = () => {
   return (
     <HeroButton
       title="Bing-søk"
-      description="Hent up-to-date data med Bingsøk!"
+      description="Bing-søk er enda et eksempel på utvidelse du kan lage"
       icon={<Globe />}
       onClick={newExample}
     />
