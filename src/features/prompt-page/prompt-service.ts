@@ -25,7 +25,7 @@ export const CreatePrompt = async (
         status: "UNAUTHORIZED",
         errors: [
           {
-            message: `Unable to create prompt - admin role required.`,
+            message: `Denne funksjonaliteten er dessverre utilgjengelig for din rolle`,
           },
         ],
       };

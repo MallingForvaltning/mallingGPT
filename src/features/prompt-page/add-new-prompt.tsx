@@ -37,7 +37,7 @@ export const AddPromptSlider: FC<SliderProps> = (props) => {
       return (
         <div className="flex items-center space-x-2">
           <Switch name="isPublished" defaultChecked={prompt.isPublished} />
-          <Label htmlFor="description">Publish</Label>
+          <Label htmlFor="description">Publiser</Label>
         </div>
       );
     }
@@ -52,7 +52,7 @@ export const AddPromptSlider: FC<SliderProps> = (props) => {
     >
       <SheetContent className="min-w-[480px] sm:w-[540px] flex flex-col">
         <SheetHeader>
-          <SheetTitle>Persona</SheetTitle>
+          <SheetTitle>Personlighet</SheetTitle>
         </SheetHeader>
         <form action={formAction} className="flex-1 flex flex-col">
           <ScrollArea
@@ -107,7 +107,7 @@ function Submit() {
   return (
     <Button disabled={status.pending} className="gap-2">
       <LoadingIndicator isLoading={status.pending} />
-      Save
+      Lagre
     </Button>
   );
 }

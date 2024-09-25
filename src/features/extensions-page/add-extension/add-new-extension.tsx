@@ -120,7 +120,7 @@ function Submit() {
   return (
     <Button disabled={isLoading} className="gap-2">
       <LoadingIndicator isLoading={isLoading} />
-      Save
+      Lagre
     </Button>
   );
 }

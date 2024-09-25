@@ -125,7 +125,7 @@ function Submit() {
   return (
     <Button disabled={status.pending} className="gap-2">
       <LoadingIndicator isLoading={status.pending} />
-      Save
+      Lagre
     </Button>
   );
 }

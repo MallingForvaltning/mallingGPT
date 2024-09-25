@@ -8,11 +8,11 @@ export const PromptHero = () => {
     <Hero
       title={
         <>
-          <Book size={36} strokeWidth={1.5} /> Promptbibliotek
+          <Book size={36} strokeWidth={1.5} /> Prompts
         </>
       }
       description={
-        "Med prompt-maler kan du lage og lagre tilpassede meldinger for å få bedre og raskere resultater med AI"
+        "Kun for utviklere. Med prompt-maler kan du lage og lagre tilpassede meldinger for å få bedre og raskere resultater med AI"
       }
     >
       <HeroButton
