@@ -29,7 +29,7 @@ export const LogIn: FC<LoginProps> = (props) => {
           <span className="text-primary">{AI_NAME}</span>
         </CardTitle>
         <CardDescription>
-          Login in with your GitHub or Microsoft 365 account
+          Klikk under for å logge inn med Microsoft 365
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">

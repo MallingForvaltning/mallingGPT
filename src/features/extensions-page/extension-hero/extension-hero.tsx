@@ -12,11 +12,10 @@ export const ExtensionHero = () => {
     <Hero
       title={
         <>
-          <PocketKnife size={36} strokeWidth={1.5} /> Extensions
+          <PocketKnife size={36} strokeWidth={1.5} /> Utvidelser
         </>
       }
-      description={`Seamlessly connect ${AI_NAME} with internal APIs or external
-        resources`}
+      description={`Kun for utviklere. Koble på ${AI_NAME} med interne APIer eller eksterne kilder.`}
     >
       <NewExtension />
       <BingSearch />

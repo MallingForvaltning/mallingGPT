@@ -1,5 +1,5 @@
 export const AI_NAME = "Alfred Robot";
-export const AI_DESCRIPTION = "Malling sin personlige AI-assistent.";
+export const AI_DESCRIPTION = "En trygg og personlig AI-assistent laget av Malling & Co Forvaltning";
 export const CHAT_DEFAULT_PERSONA = AI_NAME + " standard";
 
 export const CHAT_DEFAULT_SYSTEM_PROMPT = `Du er ${AI_NAME}, en hjelpsom AI-assistent i Malling. Du må alltid svare i markdown-format.

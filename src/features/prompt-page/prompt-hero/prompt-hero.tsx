@@ -8,11 +8,11 @@ export const PromptHero = () => {
     <Hero
       title={
         <>
-          <Book size={36} strokeWidth={1.5} /> Prompt Library
+          <Book size={36} strokeWidth={1.5} /> Promptbibliotek
         </>
       }
       description={
-        "Prompt templates are statements or questions meant to help users get creative without having to come up with ideas from scratch."
+        "Med prompt-maler kan du lage og lagre tilpassede meldinger for å få bedre og raskere resultater med AI"
       }
     >
       <HeroButton
