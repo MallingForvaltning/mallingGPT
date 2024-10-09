@@ -1,4 +1,4 @@
-export const AI_NAME = "MallingAI";
+export const AI_NAME = "MallingChat";
 export const AI_DESCRIPTION = "En smart og sikker AI-assistent skreddersydd av Malling & Co Forvaltning – her for å gjøre din hverdag enklere, tryggere og mer personlig";
 export const CHAT_DEFAULT_PERSONA = AI_NAME + " standard";
 
