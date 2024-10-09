@@ -11,7 +11,7 @@ export const PersonaHero = () => {
           <VenetianMask size={36} strokeWidth={1.5} /> Personlighet
         </>
       }
-      description={`En personlighet du kan ha samtaler med. Med andre ord, din helt egne AI skreddersydd for deg.`}
+      description={`En AI tilpasset ditt behov`}
     >
       <HeroButton
         title="Ny Personlighet"

@@ -34,26 +34,7 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
           description={AI_DESCRIPTION}
         ></Hero>
         <div className="container max-w-4xl flex gap-20 flex-col">
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Utvidelser</h2>
 
-            {props.extensions && props.extensions.length > 0 ? (
-              <div className="grid grid-cols-3 gap-3">
-                {props.extensions.map((extension) => {
-                  return (
-                    <ExtensionCard
-                      extension={extension}
-                      key={extension.id}
-                      showContextMenu={false}
-                    />
-                  );
-                })}
-              </div>
-            ) :
-              <p className="text-muted-foreground max-w-xl">Du har ikke laget noen utvidelser</p>
-            }
-
-          </div>
           <div>
             <h2 className="text-2xl font-bold mb-3">Personlighet</h2>
 
