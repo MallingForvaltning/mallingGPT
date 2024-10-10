@@ -48,15 +48,20 @@ export const MainMenu = async () => {
               <PocketKnife {...menuIconProps} />
             </MenuLink>
           </MenuItem>
-          <MenuItem tooltip="prompts">
-            <MenuLink href="/prompt" ariaLabel="Gå til prompt-oversikt">
-              <Book {...menuIconProps} />
-            </MenuLink>
-          </MenuItem>
+
+          {/* Only show 'Prompts' if the user is an admin */}
+          {user.isAdmin && (
+            <MenuItem tooltip="prompts">
+              <MenuLink href="/prompt" ariaLabel="Gå til prompt-oversikt">
+                <Book {...menuIconProps} />
+              </MenuLink>
+            </MenuItem>
+          )}
+
           {user.isAdmin && (
             <>
               <MenuItem tooltip="reporting">
-                <MenuLink href="/reporting" ariaLabel="Gå til rapportering" >
+                <MenuLink href="/reporting" ariaLabel="Gå til rapportering">
                   <Sheet {...menuIconProps} />
                 </MenuLink>
               </MenuItem>
