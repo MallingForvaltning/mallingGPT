@@ -16,10 +16,15 @@ import { Book } from "lucide-react";
 import { FC } from "react";
 import { inputPromptStore, useInputPromptState } from "./input-prompt-store";
 
-interface SliderProps {}
+interface SliderProps {
+  user: {
+    isAdmin: boolean;
+  };
+}
 
-export const PromptSlider: FC<SliderProps> = (props) => {
+export const PromptSlider: FC<SliderProps> = ({ user }) => {
   const { prompts, isLoading, isOpened } = useInputPromptState();
+  
   return (
     <Sheet
       open={isOpened}
@@ -27,17 +32,19 @@ export const PromptSlider: FC<SliderProps> = (props) => {
         inputPromptStore.updateOpened(value);
       }}
     >
-      <SheetTrigger asChild>
-        <Button
-          size="icon"
-          type="button"
-          variant={"ghost"}
-          onClick={() => inputPromptStore.openPrompt()}
-          aria-label="Open prompt library"
-        >
-          <Book size={16} />
-        </Button>
-      </SheetTrigger>
+      {user.isAdmin && (
+        <SheetTrigger asChild>
+          <Button
+            size="icon"
+            type="button"
+            variant={"ghost"}
+            onClick={() => inputPromptStore.openPrompt()}
+            aria-label="Open prompt library"
+          >
+            <Book size={16} />
+          </Button>
+        </SheetTrigger>
+      )}
 
       <SheetContent className="min-w-[480px] flex flex-col">
         <SheetHeader>
