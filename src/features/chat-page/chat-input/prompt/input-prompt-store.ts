@@ -11,8 +11,8 @@ class InputPromptState {
   public isLoading: boolean = false;
 
   public async openPrompt() {
-    this.isOpened = true;
-    this.isLoading = true;
+    this.isOpened = false;
+    this.isLoading = false;
     this.errors = [];
 
     const response = await FindAllPrompts();
