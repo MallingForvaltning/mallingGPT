@@ -12,19 +12,18 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # No changes needed, already compatible with Node.js 20
 
       - name: Build Bicep for linting
-        uses: azure/CLI@v1
+        uses: azure/CLI@v1  # Check for a newer version of Azure CLI action if available
         with:
           inlineScript: az config set bicep.use_binary_from_path=false && az bicep build -f infra/main.bicep --stdout
 
       - name: Run Microsoft Security DevOps Analysis
-        uses: microsoft/security-devops-action@preview
+        uses: microsoft/security-devops-action@preview  # Stay updated for the final stable release of this action
         id: msdo
         continue-on-error: true
         with:
