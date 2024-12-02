@@ -43,13 +43,17 @@ export const MainMenu = async () => {
               <VenetianMask {...menuIconProps} />
             </MenuLink>
           </MenuItem>
-          <MenuItem tooltip="utvidelser">
-            <MenuLink href="/extensions" ariaLabel="Gå til utvidelser">
-              <PocketKnife {...menuIconProps} />
-            </MenuLink>
-          </MenuItem>
 
-          {/* Only show 'Prompts' if the user is an admin */}
+          {/* Restrict 'Extensions' to admins */}
+          {user.isAdmin && (
+            <MenuItem tooltip="utvidelser">
+              <MenuLink href="/extensions" ariaLabel="Gå til utvidelser">
+                <PocketKnife {...menuIconProps} />
+              </MenuLink>
+            </MenuItem>
+          )}
+
+          {/* Restrict 'Prompts' to admins */}
           {user.isAdmin && (
             <MenuItem tooltip="prompts">
               <MenuLink href="/prompt" ariaLabel="Gå til prompt-oversikt">
@@ -58,6 +62,7 @@ export const MainMenu = async () => {
             </MenuItem>
           )}
 
+          {/* Restrict 'Reporting' to admins */}
           {user.isAdmin && (
             <>
               <MenuItem tooltip="reporting">
