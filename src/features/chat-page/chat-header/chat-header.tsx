@@ -2,6 +2,7 @@ import { ExtensionModel } from "@/features/extensions-page/extension-services/mo
 import { CHAT_DEFAULT_PERSONA } from "@/features/theme/theme-config";
 import { VenetianMask } from "lucide-react";
 import { FC } from "react";
+import { useSession } from "next-auth/react"; // Legg til useSession
 import { ChatDocumentModel, ChatThreadModel } from "../chat-services/models";
 import { DocumentDetail } from "./document-detail";
 import { ExtensionDetail } from "./extension-detail";
@@ -14,11 +15,15 @@ interface Props {
 }
 
 export const ChatHeader: FC<Props> = (props) => {
+  const { data } = useSession(); // Hent brukerdata fra sesjonen
+  const isAdmin = data?.user?.isAdmin; // Sjekk om brukeren er admin
+
   const persona =
     props.chatThread.personaMessageTitle === "" ||
     props.chatThread.personaMessageTitle === undefined
       ? CHAT_DEFAULT_PERSONA
       : props.chatThread.personaMessageTitle;
+
   return (
     <div className="bg-background border-b flex items-center py-2">
       <div className="container max-w-3xl flex justify-between items-center">
@@ -32,12 +37,15 @@ export const ChatHeader: FC<Props> = (props) => {
         <div className="flex gap-2">
           <PersonaDetail chatThread={props.chatThread} />
           <DocumentDetail chatDocuments={props.chatDocuments} />
-          <ExtensionDetail
-            disabled={props.chatDocuments.length !== 0}
-            extensions={props.extensions}
-            installedExtensionIds={props.chatThread.extension}
-            chatThreadId={props.chatThread.id}
-          />
+          {/* Vis kun ExtensionDetail for admin */}
+          {isAdmin && (
+            <ExtensionDetail
+              disabled={props.chatDocuments.length !== 0}
+              extensions={props.extensions}
+              installedExtensionIds={props.chatThread.extension}
+              chatThreadId={props.chatThread.id}
+            />
+          )}
         </div>
       </div>
     </div>

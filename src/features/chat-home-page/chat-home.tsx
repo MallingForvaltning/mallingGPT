@@ -33,8 +33,21 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
           }
           description={AI_DESCRIPTION}
         ></Hero>
-        <div className="container max-w-4xl flex gap-20 flex-col">
 
+        {/* Ny samtale-knapp */}
+        <div className="flex justify-center">
+          <button
+            onClick={() => {
+              // Naviger til "Ny samtale"-funksjonen eller gjør en handling her
+              console.log("Ny samtale opprettet");
+            }}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Ny samtale
+          </button>
+        </div>
+
+        <div className="container max-w-4xl flex gap-20 flex-col">
           <div>
             <h2 className="text-2xl font-bold mb-3">Personlighet</h2>
 
@@ -50,9 +63,11 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
                   );
                 })}
               </div>
-            ) :
-              <p className="text-muted-foreground max-w-xl">Du har ikke laget noen personligheter</p>
-            }
+            ) : (
+              <p className="text-muted-foreground max-w-xl">
+                Du har ikke laget noen personligheter
+              </p>
+            )}
           </div>
         </div>
         <AddExtension />

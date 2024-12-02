@@ -8,9 +8,10 @@ export const ChatTextInput = React.forwardRef<
     <textarea
       ref={ref}
       className="p-4 w-full focus:outline-none bg-transparent resize-none "
-      placeholder="Skriv her..."
+      placeholder="Skriv ny melding her..."
       {...props}
     />
   );
 });
 ChatTextInput.displayName = "ChatTextInput";
+s

@@ -41,7 +41,7 @@ export const ExtensionDetail: FC<Props> = (props) => {
       </SheetTrigger>
       <SheetContent className="min-w-[480px] sm:w-[540px] flex flex-col">
         <SheetHeader>
-          <SheetTitle>Extensions</SheetTitle>
+          <SheetTitle>Utvidelser</SheetTitle>
         </SheetHeader>
         <ScrollArea className="flex-1 -mx-6 flex" type="always">
           <div className="pb-6 px-6 flex gap-4 flex-col  flex-1">
