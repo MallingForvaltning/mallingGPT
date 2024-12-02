@@ -66,7 +66,6 @@ module resources 'resources.bicep' = {
   params: {
     name: name
     resourceToken: resourceToken
-    tags: tags
     openai_api_version: openAIApiVersion
     openAiLocation: openAILocation
     openAiSkuName: openAISku
@@ -77,20 +76,10 @@ module resources 'resources.bicep' = {
     embeddingDeploymentName: embeddingDeploymentName
     embeddingDeploymentCapacity: embeddingDeploymentCapacity
     embeddingModelName: embeddingModelName
-    dalleLocation: dalleLocation
-    dalleDeploymentCapacity: dalleDeploymentCapacity
-    dalleDeploymentName: dalleDeploymentName
-    dalleModelName: dalleModelName
-    dalleApiVersion: dalleApiVersion
-    formRecognizerSkuName: formRecognizerSkuName
-    searchServiceIndexName: searchServiceIndexName
-    searchServiceSkuName: searchServiceSkuName
-    storageServiceSku: storageServiceSku
-    storageServiceImageContainerName: storageServiceImageContainerName
     location: location
   }
 }
 
-output APP_URL string = resources.outputs.url
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
