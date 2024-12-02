@@ -14,4 +14,3 @@ export const ChatTextInput = React.forwardRef<
   );
 });
 ChatTextInput.displayName = "ChatTextInput";
-s
