@@ -14,6 +14,7 @@ import { ExtensionModel } from "../extension-services/models";
 import { extensionStore } from "../extension-store";
 import { ExtensionCardContextMenu } from "./extension-context-menu";
 import { StartNewExtensionChat } from "./start-new-extension-chat";
+import { useSession } from "next-auth/react"; // Hent brukerdata
 
 interface Props {
   extension: ExtensionModel;
@@ -22,11 +23,17 @@ interface Props {
 
 export const ExtensionCard: FC<Props> = (props) => {
   const { extension } = props;
+  const { data } = useSession(); // Hent session-data
+
+  // Sjekk om brukeren er admin
+  const isAdmin = data?.user?.isAdmin;
+
   return (
     <Card key={extension.id} className="flex flex-col">
       <CardHeader className="flex flex-row">
         <CardTitle className="flex-1">{extension.name}</CardTitle>
-        {props.showContextMenu && (
+        {/* Kun vis menyen hvis brukeren er admin */}
+        {props.showContextMenu && isAdmin && (
           <div>
             <ExtensionCardContextMenu extension={extension} />
           </div>
@@ -36,7 +43,8 @@ export const ExtensionCard: FC<Props> = (props) => {
         {extension.description}
       </CardContent>
       <CardFooter className="gap-1 content-stretch f">
-        {props.showContextMenu && (
+        {/* Kun vis admin-knappen hvis brukeren er admin */}
+        {props.showContextMenu && isAdmin && (
           <Button
             variant={"outline"}
             title="Show message"
@@ -45,7 +53,6 @@ export const ExtensionCard: FC<Props> = (props) => {
             <Pencil size={18} />
           </Button>
         )}
-
         <StartNewExtensionChat extension={extension} />
       </CardFooter>
     </Card>

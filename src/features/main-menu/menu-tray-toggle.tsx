@@ -10,7 +10,7 @@ export const MenuTrayToggle = () => {
   return (
     <MenuItem
       onClick={() => menuStore.toggleMenu()}
-      tooltip="Open and Collapse menu"
+      tooltip="Utvide meny"
     >
       <PanelLeftClose
         {...menuIconProps}

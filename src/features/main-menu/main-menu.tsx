@@ -25,7 +25,7 @@ export const MainMenu = async () => {
     <Menu>
       <MenuBar>
         <MenuItemContainer>
-          <MenuItem tooltip="Home" asChild>
+          <MenuItem tooltip="Hjem" asChild>
             <MenuLink href="/chat" ariaLabel="Gå til hjem">
               <Home {...menuIconProps} />
             </MenuLink>
@@ -38,12 +38,12 @@ export const MainMenu = async () => {
               <MessageCircle {...menuIconProps} />
             </MenuLink>
           </MenuItem>
-          <MenuItem tooltip="Persona">
+          <MenuItem tooltip="personlighet">
             <MenuLink href="/persona" ariaLabel="Gå til personligheter">
               <VenetianMask {...menuIconProps} />
             </MenuLink>
           </MenuItem>
-          <MenuItem tooltip="extensions">
+          <MenuItem tooltip="utvidelser">
             <MenuLink href="/extensions" ariaLabel="Gå til utvidelser">
               <PocketKnife {...menuIconProps} />
             </MenuLink>
@@ -69,7 +69,7 @@ export const MainMenu = async () => {
           )}
         </MenuItemContainer>
         <MenuItemContainer>
-          <MenuItem tooltip="Profile">
+          <MenuItem tooltip="Profil">
             <UserProfile />
           </MenuItem>
         </MenuItemContainer>

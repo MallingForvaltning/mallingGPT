@@ -25,7 +25,7 @@ export const LogIn: FC<LoginProps> = (props) => {
         <CardTitle className="text-2xl flex gap-2">
           <Avatar className="h-8 w-8">
             <AvatarImage src={"ai-icon.png"} />
-          </Avatar>
+          </Avatar>F
           <span className="text-primary">{AI_NAME}</span>
         </CardTitle>
         <CardDescription>
