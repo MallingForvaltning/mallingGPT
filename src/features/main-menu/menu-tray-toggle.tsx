@@ -10,7 +10,7 @@ export const MenuTrayToggle = () => {
   return (
     <MenuItem
       onClick={() => menuStore.toggleMenu()}
-      tooltip="Utvide meny"
+      tooltip="Vis chathistorikk"
     >
       <PanelLeftClose
         {...menuIconProps}
