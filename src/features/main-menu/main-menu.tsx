@@ -41,9 +41,6 @@ export const MainMenu = async () => {
               <VenetianMask {...menuIconProps} />
             </MenuLink>
           </MenuItem>
-          <MenuItem tooltip="Profil">
-            <UserProfile />
-          </MenuItem>
         </MenuItemContainer>
 
         {/* Admin-specific items */}
@@ -66,6 +63,13 @@ export const MainMenu = async () => {
             </MenuItem>
           </MenuItemContainer>
         )}
+
+        {/* Profile/User at the bottom */}
+        <MenuItemContainer>
+          <MenuItem tooltip="Profil">
+            <UserProfile />
+          </MenuItem>
+        </MenuItemContainer>
       </MenuBar>
     </Menu>
   );
