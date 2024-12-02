@@ -5,6 +5,7 @@ import { RevalidateCache } from "@/features/common/navigation-helpers";
 import { LoadingIndicator } from "@/features/ui/loading";
 import { MoreVertical, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
+import { useSession } from "next-auth/react"; // Import useSession
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,36 +22,39 @@ interface Props {
 type DropdownAction = "edit" | "delete";
 
 export const ExtensionCardContextMenu: FC<Props> = (props) => {
+  const { data } = useSession(); // Retrieve user session
+  const isAdmin = data?.user?.isAdmin; // Check if the user is an admin
+
+  if (!isAdmin) return null; // Return null if the user is not an admin
+
   const { isLoading, handleAction } = useDropdownAction({
     extension: props.extension,
   });
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          {isLoading ? (
-            <LoadingIndicator isLoading={isLoading} />
-          ) : (
-            <MoreVertical size={18} />
-          )}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItemWithIcon
-            onClick={() => extensionStore.openAndUpdate(props.extension)}
-          >
-            <Pencil size={18} />
-            <span>Edit</span>
-          </DropdownMenuItemWithIcon>
-          <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("delete")}
-          >
-            <Trash size={18} />
-            <span>Delete</span>
-          </DropdownMenuItemWithIcon>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        {isLoading ? (
+          <LoadingIndicator isLoading={isLoading} />
+        ) : (
+          <MoreVertical size={18} />
+        )}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItemWithIcon
+          onClick={() => extensionStore.openAndUpdate(props.extension)}
+        >
+          <Pencil size={18} />
+          <span>Edit</span>
+        </DropdownMenuItemWithIcon>
+        <DropdownMenuItemWithIcon
+          onClick={async () => await handleAction("delete")}
+        >
+          <Trash size={18} />
+          <span>Delete</span>
+        </DropdownMenuItemWithIcon>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
@@ -70,7 +74,6 @@ const useDropdownAction = (props: { extension: ExtensionModel }) => {
             page: "extensions",
           });
         }
-
         break;
     }
     setIsLoading(false);
