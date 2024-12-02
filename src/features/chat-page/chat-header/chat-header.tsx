@@ -2,7 +2,7 @@ import { ExtensionModel } from "@/features/extensions-page/extension-services/mo
 import { CHAT_DEFAULT_PERSONA } from "@/features/theme/theme-config";
 import { VenetianMask } from "lucide-react";
 import { FC } from "react";
-import { useSession } from "next-auth/react"; // Legg til useSession
+import { useSession } from "next-auth/react"; // Importer useSession
 import { ChatDocumentModel, ChatThreadModel } from "../chat-services/models";
 import { DocumentDetail } from "./document-detail";
 import { ExtensionDetail } from "./extension-detail";
@@ -15,14 +15,25 @@ interface Props {
 }
 
 export const ChatHeader: FC<Props> = (props) => {
-  const { data } = useSession(); // Hent brukerdata fra sesjonen
-  const isAdmin = data?.user?.isAdmin; // Sjekk om brukeren er admin
+  const { data, status } = useSession(); // Hent brukerdata fra sesjonen
+  const isAdmin = data?.user?.isAdmin ?? false; // Sjekk om brukeren er admin
 
   const persona =
     props.chatThread.personaMessageTitle === "" ||
     props.chatThread.personaMessageTitle === undefined
       ? CHAT_DEFAULT_PERSONA
       : props.chatThread.personaMessageTitle;
+
+  // Sjekk hvis sesjonen er fortsatt lastes inn
+  if (status === "loading") {
+    return (
+      <div className="bg-background border-b flex items-center py-2">
+        <div className="container max-w-3xl flex justify-between items-center">
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background border-b flex items-center py-2">
@@ -38,7 +49,7 @@ export const ChatHeader: FC<Props> = (props) => {
           <PersonaDetail chatThread={props.chatThread} />
           <DocumentDetail chatDocuments={props.chatDocuments} />
           {/* Vis kun ExtensionDetail for admin */}
-          {isAdmin && (
+          {isAdmin && props.extensions && (
             <ExtensionDetail
               disabled={props.chatDocuments.length !== 0}
               extensions={props.extensions}
