@@ -1,87 +1,56 @@
 "use client";
 
-import { DropdownMenuItemWithIcon } from "@/features/chat-page/chat-menu/chat-menu-item";
-import { RevalidateCache } from "@/features/common/navigation-helpers";
-import { LoadingIndicator } from "@/features/ui/loading";
-import { MoreVertical, Pencil, Trash } from "lucide-react";
-import { FC, useState } from "react";
-import { useSession } from "next-auth/react"; // Importer session
+import { Button } from "@/features/ui/button";
+import { Pencil } from "lucide-react";
+import { FC } from "react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
-import { DeleteExtension } from "../extension-services/extension-service";
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../ui/card";
 import { ExtensionModel } from "../extension-services/models";
 import { extensionStore } from "../extension-store";
+import { ExtensionCardContextMenu } from "./extension-context-menu";
+import { StartNewExtensionChat } from "./start-new-extension-chat";
+import { useSession } from "next-auth/react";
 
 interface Props {
   extension: ExtensionModel;
+  showContextMenu: boolean;
 }
 
-type DropdownAction = "edit" | "delete";
-
-export const ExtensionCardContextMenu: FC<Props> = (props) => {
-  const { data } = useSession(); // Hent brukerens session-data
-  const isAdmin = data?.user?.isAdmin; // Sjekk om brukeren er admin
-
-  if (!isAdmin) return null; // Ikke vis komponenten for ikke-admin-brukere
-
-  const { isLoading, handleAction } = useDropdownAction({
-    extension: props.extension,
-  });
+export const ExtensionCard: FC<Props> = (props) => {
+  const { extension } = props;
+  const { data } = useSession();
+  const isAdmin = data?.user?.isAdmin;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        {isLoading ? (
-          <LoadingIndicator isLoading={isLoading} />
-        ) : (
-          <MoreVertical size={18} />
+    <Card key={extension.id} className="flex flex-col">
+      <CardHeader className="flex flex-row">
+        <CardTitle className="flex-1">{extension.name}</CardTitle>
+        {props.showContextMenu && isAdmin && (
+          <div>
+            <ExtensionCardContextMenu extension={extension} />
+          </div>
         )}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItemWithIcon
-          onClick={() => extensionStore.openAndUpdate(props.extension)}
-        >
-          <Pencil size={18} />
-          <span>Edit</span>
-        </DropdownMenuItemWithIcon>
-        <DropdownMenuItemWithIcon
-          onClick={async () => await handleAction("delete")}
-        >
-          <Trash size={18} />
-          <span>Delete</span>
-        </DropdownMenuItemWithIcon>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </CardHeader>
+      <CardContent className="text-muted-foreground flex-1">
+        {extension.description}
+      </CardContent>
+      <CardFooter className="gap-1 content-stretch">
+        {props.showContextMenu && isAdmin && (
+          <Button
+            variant="outline"
+            title="Edit extension"
+            onClick={() => extensionStore.openAndUpdate(props.extension)}
+          >
+            <Pencil size={18} />
+          </Button>
+        )}
+        <StartNewExtensionChat extension={extension} />
+      </CardFooter>
+    </Card>
   );
-};
-
-const useDropdownAction = (props: { extension: ExtensionModel }) => {
-  const { extension } = props;
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleAction = async (action: DropdownAction) => {
-    setIsLoading(true);
-    switch (action) {
-      case "delete":
-        if (
-          window.confirm(`Are you sure you want to delete ${extension.name}?`)
-        ) {
-          await DeleteExtension(extension.id);
-          RevalidateCache({
-            page: "extensions",
-          });
-        }
-
-        break;
-    }
-    setIsLoading(false);
-  };
-
-  return {
-    isLoading,
-    handleAction,
-  };
 };
