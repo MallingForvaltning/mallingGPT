@@ -5,7 +5,7 @@ import { RevalidateCache } from "@/features/common/navigation-helpers";
 import { LoadingIndicator } from "@/features/ui/loading";
 import { MoreVertical, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
-import { useSession } from "next-auth/react"; // Import session
+import { useSession } from "next-auth/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,11 +22,14 @@ interface Props {
 type DropdownAction = "edit" | "delete";
 
 export const ExtensionCardContextMenu: FC<Props> = (props) => {
-  const { data } = useSession(); // Retrieve session data
+  const { data } = useSession();
+  const isAdmin = data?.user?.isAdmin;
 
-  // If the user is not an admin, don't render the menu
-  if (!data?.user?.isAdmin) {
-    return null;
+  // Check admin status and log it for debugging
+  console.log("isAdmin:", isAdmin);
+
+  if (!isAdmin) {
+    return null; // Hide the menu completely if the user is not an admin
   }
 
   const { isLoading, handleAction } = useDropdownAction({
