@@ -32,7 +32,8 @@ interface Props {}
 export const AddExtension: FC<Props> = (props) => {
   const { isOpened, extension } = useExtensionState();
 
-  const { data } = useSession();
+  const { data } = useSession(); // Fetch session data
+  const isAdmin = data?.user?.isAdmin; // Check if the user is an admin
   const initialState: ServerActionResponse | undefined = undefined;
 
   const [formState, formAction] = useFormState(
@@ -41,17 +42,20 @@ export const AddExtension: FC<Props> = (props) => {
   );
 
   const PublicSwitch = () => {
-    if (data === undefined || data === null) return null;
+    if (!isAdmin) return null; // Render only if the user is an admin
 
-    if (data?.user?.isAdmin) {
-      return (
-        <div className="flex items-center space-x-2">
-          <Switch name="isPublished" defaultChecked={extension.isPublished} />
-          <Label htmlFor="description">Publish</Label>
-        </div>
-      );
-    }
+    return (
+      <div className="flex items-center space-x-2">
+        <Switch name="isPublished" defaultChecked={extension.isPublished} />
+        <Label htmlFor="description">Publish</Label>
+      </div>
+    );
   };
+
+  if (!isAdmin) {
+    // Prevent non-admins from accessing the component entirely
+    return null;
+  }
 
   return (
     <Sheet
@@ -89,7 +93,7 @@ export const AddExtension: FC<Props> = (props) => {
                   required
                   defaultValue={extension.description}
                   name="description"
-                  placeholder="Kort beskrivelse"
+                  placeholder="Short description"
                 />
               </div>
               <div className="grid gap-2">
@@ -120,7 +124,7 @@ function Submit() {
   return (
     <Button disabled={isLoading} className="gap-2">
       <LoadingIndicator isLoading={isLoading} />
-      Lagre
+      Save
     </Button>
   );
 }
