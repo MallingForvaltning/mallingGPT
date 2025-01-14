@@ -3,12 +3,8 @@ import React from "react";
 export const ChatTextInput = React.forwardRef<
   HTMLTextAreaElement,
   React.TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ onPaste, ...props }, ref) => {
+>(({ ...props }, ref) => {
   const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-    if (onPaste) {
-      onPaste(event); // Kall eventuelle prop-handler først
-    }
-
     const clipboardItems = event.clipboardData.items;
     for (let i = 0; i < clipboardItems.length; i++) {
       const item = clipboardItems[i];
@@ -18,12 +14,12 @@ export const ChatTextInput = React.forwardRef<
           const reader = new FileReader();
           reader.onload = () => {
             const base64 = reader.result as string;
-            console.log("Bilde limt inn i base64-format:", base64);
-            // Her kan du legge til logikk for å oppdatere state eller sende base64-bildet videre.
+            console.log("Base64 generert:", base64); // Bekreft at bildet er konvertert
+            InputImageStore.UpdateBase64Image(base64); // Oppdater state for bildet
           };
           reader.readAsDataURL(file);
         }
-        event.preventDefault(); // Forhindre at bildet også vises som tekst
+        event.preventDefault(); // Forhindre standard tekst-lim-inn-oppførsel
       }
     }
   };
@@ -33,9 +29,10 @@ export const ChatTextInput = React.forwardRef<
       ref={ref}
       className="p-4 w-full focus:outline-none bg-transparent resize-none"
       placeholder="Skriv ny melding her..."
-      onPaste={handlePaste}
+      onPaste={handlePaste} // Koble paste-handleren her
       {...props}
     />
   );
 });
 ChatTextInput.displayName = "ChatTextInput";
+
