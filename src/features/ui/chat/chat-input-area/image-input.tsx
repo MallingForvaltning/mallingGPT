@@ -19,8 +19,26 @@ export const ImageInput: FC = () => {
     InputImageStore.Reset();
   };
 
+  const handlePaste = async (event: React.ClipboardEvent) => {
+    const clipboardItems = event.clipboardData.items;
+    for (const item of clipboardItems) {
+      if (item.type.startsWith("image/")) {
+        const file = item.getAsFile();
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result as string;
+            InputImageStore.UpdateBase64Image(base64);
+          };
+          reader.readAsDataURL(file);
+        }
+        event.preventDefault(); // Forhindre standard lim-oppførsel
+      }
+    }
+  };
+
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2" onPaste={handlePaste}>
       {previewImage && (
         <div className="relative overflow-hidden rounded-md w-[35px] h-[35px]">
           <Image src={previewImage} alt="Preview" fill={true} />
