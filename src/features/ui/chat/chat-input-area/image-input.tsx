@@ -4,7 +4,7 @@ import { Button } from "../../button";
 import { InputImageStore, useInputImage } from "./input-image-store";
 
 export const ImageInput: FC = () => {
-  const { base64Image } = useInputImage(); // Henter Base64 og preview-data
+  const { base64Image } = useInputImage(); // Hent Base64 fra InputImageStore
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = () => {
@@ -27,7 +27,7 @@ export const ImageInput: FC = () => {
           const reader = new FileReader();
           reader.onload = () => {
             const base64 = reader.result as string;
-            InputImageStore.UpdateBase64Image(base64); // Oppdater bildet i store
+            InputImageStore.UpdateBase64Image(base64); // Oppdater Base64-data
           };
           reader.readAsDataURL(file);
         }

@@ -1,9 +1,9 @@
 import { proxy, useSnapshot } from "valtio";
 
 class InputImageState {
-  public previewImage: string = "";
-  public base64Image: string = "";
-  public fileUrl: string = "";
+  public previewImage: string = ""; // Forhåndsvisning av bilde
+  public base64Image: string = ""; // Base64-streng for bilde
+  public fileUrl: string = ""; // Filnavn eller URL
 
   get PreViewImage() {
     return this.previewImage;
@@ -11,6 +11,7 @@ class InputImageState {
 
   public UpdateBase64Image(image: string) {
     this.base64Image = image;
+    this.previewImage = image; // Oppdater forhåndsvisning når Base64-bilde settes
   }
 
   public Reset() {
