@@ -1,5 +1,6 @@
 import { proxy, useSnapshot } from "valtio";
 
+
 class InputImageState {
   public previewImage: string = ""; // Forhåndsvisning av bilde
   public base64Image: string = ""; // Base64-streng for bilde
