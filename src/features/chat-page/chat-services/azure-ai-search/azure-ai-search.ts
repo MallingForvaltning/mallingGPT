@@ -82,7 +82,7 @@ export const SimilaritySearch = async (
         queries: [
           {
             vector: embeddings.data[0].embedding,
-            fields: ["text-embedding-3-large"],
+            fields: ["embedding"],
             kind: "vector",
             kNearestNeighborsCount: 10,
           },
