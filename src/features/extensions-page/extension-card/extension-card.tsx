@@ -43,7 +43,7 @@ export const ExtensionCard: FC<Props> = (props) => {
         {props.showContextMenu && isAdmin && (
           <Button
             variant="outline"
-            title="Edit extension"
+            title="Endre utvidelse"
             onClick={() => extensionStore.openAndUpdate(props.extension)}
           >
             <Pencil size={18} />

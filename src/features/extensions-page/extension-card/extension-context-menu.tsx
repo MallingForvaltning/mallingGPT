@@ -50,13 +50,13 @@ export const ExtensionCardContextMenu: FC<Props> = (props) => {
           onClick={() => extensionStore.openAndUpdate(props.extension)}
         >
           <Pencil size={18} />
-          <span>Edit</span>
+          <span>Endre</span>
         </DropdownMenuItemWithIcon>
         <DropdownMenuItemWithIcon
           onClick={async () => await handleAction("delete")}
         >
           <Trash size={18} />
-          <span>Delete</span>
+          <span>Slett</span>
         </DropdownMenuItemWithIcon>
       </DropdownMenuContent>
     </DropdownMenu>

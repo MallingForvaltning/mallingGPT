@@ -65,14 +65,14 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
             onClick={async () => await handleAction("slett")}
           >
             <Pencil size={18} />
-            <span>Rename</span>
+            <span>Endre navn</span>
           </DropdownMenuItemWithIcon>
           <DropdownMenuSeparator />
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("slett")}
+            onClick={async () => await handleAction("endre navn")}
           >
             <Trash size={18} />
-            <span>Delete</span>
+            <span>Slett</span>
           </DropdownMenuItemWithIcon>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -80,7 +80,7 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
   );
 };
 
-type DropdownAction = "favoritt" | "gi nytt navn" | "slett";
+type DropdownAction = "favoritt" | "endre navn" | "slett";
 
 const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
   const { chatThread } = props;
@@ -92,7 +92,7 @@ const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
       case "favoritt":
         await BookmarkChatThread({ chatThread });
         break;
-      case "gi nytt navn":
+      case "endre navn":
         const name = window.prompt("Skriv nytt navn på samtale:");
         if (name !== null) {
           await UpdateChatThreadTitle({ chatThread, name });

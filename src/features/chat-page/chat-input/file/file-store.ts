@@ -28,7 +28,7 @@ class FileStore {
       formData.append("id", chatThreadId);
       const file: File | null = formData.get("file") as unknown as File;
 
-      this.uploadButtonLabel = "Processing document";
+      this.uploadButtonLabel = "Leser ditt dokument";
       const crackingResponse = await CrackDocument(formData);
 
       if (crackingResponse.status === "OK") {
