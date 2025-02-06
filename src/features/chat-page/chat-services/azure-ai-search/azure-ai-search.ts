@@ -421,7 +421,7 @@ const CreateSearchIndex = async (): Promise<
           type: "Edm.String",
         },
         {
-          name: "text-embedding-3-large",
+          name: "embedding",
           type: "Collection(Edm.Single)",
           searchable: true,
           filterable: false,

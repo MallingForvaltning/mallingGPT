@@ -26,7 +26,7 @@ param chatGptDeploymentCapacity int = 30
 param chatGptDeploymentName string = 'gpt-4o'
 param chatGptModelName string = 'gpt-4o'
 param chatGptModelVersion string = '2024-11-20'
-param embeddingDeploymentName string = 'text-embedding-3-large'
+param embeddingDeploymentName string = 'embedding'
 param embeddingDeploymentCapacity int = 120
 param embeddingModelName string = 'text-embedding-3-large'
 
