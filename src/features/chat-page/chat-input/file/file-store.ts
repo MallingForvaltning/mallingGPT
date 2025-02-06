@@ -64,8 +64,8 @@ class FileStore {
 
           if (response.status === "OK") {
             showSuccess({
-              title: "File upload",
-              description: `${file.name} uploaded successfully.`,
+              title: "Fil lastet opp",
+              description: `${file.name} er lastet opp.`,
             });
           } else {
             showError(response.errors.map((e) => e).join("\n"));
