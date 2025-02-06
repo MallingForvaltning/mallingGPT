@@ -427,7 +427,7 @@ const CreateSearchIndex = async (): Promise<
           filterable: false,
           sortable: false,
           facetable: false,
-          vectorSearchDimensions: 3072,
+          vectorSearchDimensions: 1536,
           vectorSearchProfileName: "hnsw-vector",
         },
       ],
