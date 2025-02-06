@@ -68,7 +68,7 @@
     },
     "embeddingDeploymentName": {
       "type": "string",
-      "defaultValue": "embedding"
+      "defaultValue": "text-embedding-3-large"
     },
     "embeddingDeploymentCapacity": {
       "type": "int",
