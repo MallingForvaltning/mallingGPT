@@ -25,10 +25,10 @@ param openAIApiVersion string ='2024-08-01-preview'
 param chatGptDeploymentCapacity int = 30
 param chatGptDeploymentName string = 'gpt-4o'
 param chatGptModelName string = 'gpt-4o'
-param chatGptModelVersion string = '2024-05-13'
-param embeddingDeploymentName string = 'embedding'
+param chatGptModelVersion string = '2024-11-20'
+param embeddingDeploymentName string = 'text-embedding-3-large'
 param embeddingDeploymentCapacity int = 120
-param embeddingModelName string = 'text-embedding-ada-002'
+param embeddingModelName string = 'text-embedding-3-large'
 
 // DALL-E v3 only supported in limited regions for now
 @description('Location for the OpenAI DALL-E 3 instance resource group')

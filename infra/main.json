@@ -48,7 +48,7 @@
     },
     "openAIApiVersion": {
       "type": "string",
-      "defaultValue": "2024-05-13"
+      "defaultValue": "2024-11-20"
     },
     "chatGptDeploymentCapacity": {
       "type": "int",
@@ -64,7 +64,7 @@
     },
     "chatGptModelVersion": {
       "type": "string",
-      "defaultValue": "2024-05-13"
+      "defaultValue": "2024-11-20"
     },
     "embeddingDeploymentName": {
       "type": "string",
@@ -76,7 +76,7 @@
     },
     "embeddingModelName": {
       "type": "string",
-      "defaultValue": "text-embedding-ada-002"
+      "defaultValue": "text-embedding-3-large"
     },
     "dalleLocation": {
       "type": "string",
