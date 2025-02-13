@@ -31,7 +31,7 @@ export const ChatContextMenu = () => {
     }
   };
 
-  return (
+  return shouldShowMenu ? (
     <DropdownMenu>
       <DropdownMenuTrigger disabled={isLoading}>
         {isLoading ? (
@@ -47,5 +47,7 @@ export const ChatContextMenu = () => {
         </DropdownMenuItemWithIcon>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  ) : null;
+  
+  
 };
