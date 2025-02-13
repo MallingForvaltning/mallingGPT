@@ -31,23 +31,26 @@ export const ChatContextMenu = () => {
     }
   };
 
-  return shouldShowMenu ? (
-    <DropdownMenu>
-      <DropdownMenuTrigger disabled={isLoading}>
-        {isLoading ? (
-          <LoadingIndicator isLoading={isLoading} />
-        ) : (
-          <MoreVertical size={18} aria-label="Chat Menu Dropdown Menu"/>
-        )}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent side="right" align="start">
-        <DropdownMenuItemWithIcon onClick={async () => await handleAction()}>
-          <Trash size={18} />
-          <span>Slett alle</span>
-        </DropdownMenuItemWithIcon>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  ) : null;
+  const shouldShowMenu = false; // Endre til false hvis du vil skjule menyen
+
+return shouldShowMenu ? (
+  <DropdownMenu>
+    <DropdownMenuTrigger disabled={isLoading}>
+      {isLoading ? (
+        <LoadingIndicator isLoading={isLoading} />
+      ) : (
+        <MoreVertical size={18} aria-label="Chat Menu Dropdown Menu"/>
+      )}
+    </DropdownMenuTrigger>
+    <DropdownMenuContent side="right" align="start">
+      <DropdownMenuItemWithIcon onClick={async () => await handleAction()}>
+        <Trash size={18} />
+        <span>Slett alle</span>
+      </DropdownMenuItemWithIcon>
+    </DropdownMenuContent>
+  </DropdownMenu>
+) : null;
+
   
   
 };
