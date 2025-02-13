@@ -37,7 +37,7 @@ class FileStore {
         const documentIndexResponses: Array<ServerActionResponse<boolean>> = [];
 
         for (const doc of crackingResponse.response) {
-          this.uploadButtonLabel = `Indexing document [${index + 1}]/[${
+          this.uploadButtonLabel = `Tolker dokumentet [${index + 1}]/[${
             crackingResponse.response.length
           }]`;
 

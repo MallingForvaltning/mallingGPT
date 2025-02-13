@@ -54,7 +54,7 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent side="right" align="start">
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("favoritt")}
+            onClick={async () => await handleAction("bookmark")}
           >
             <BookmarkCheck size={18} />
             <span>
@@ -62,14 +62,14 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
             </span>
           </DropdownMenuItemWithIcon>
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("slett")}
+            onClick={async () => await handleAction("rename")}
           >
             <Pencil size={18} />
             <span>Endre navn</span>
           </DropdownMenuItemWithIcon>
           <DropdownMenuSeparator />
           <DropdownMenuItemWithIcon
-            onClick={async () => await handleAction("endre navn")}
+            onClick={async () => await handleAction("delete")}
           >
             <Trash size={18} />
             <span>Slett</span>
@@ -80,7 +80,7 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
   );
 };
 
-type DropdownAction = "favoritt" | "endre navn" | "slett";
+type DropdownAction = "bookmark" | "rename" | "delete";
 
 const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
   const { chatThread } = props;
@@ -89,16 +89,16 @@ const useDropdownAction = (props: { chatThread: ChatThreadModel }) => {
   const handleAction = async (action: DropdownAction) => {
     setIsLoading(true);
     switch (action) {
-      case "favoritt":
+      case "bookmark":
         await BookmarkChatThread({ chatThread });
         break;
-      case "endre navn":
+      case "rename":
         const name = window.prompt("Skriv nytt navn på samtale:");
         if (name !== null) {
           await UpdateChatThreadTitle({ chatThread, name });
         }
         break;
-      case "slett":
+      case "delete":
         if (
           window.confirm("Er du sikker på at du vil slette denne samtalen?")
         ) {
