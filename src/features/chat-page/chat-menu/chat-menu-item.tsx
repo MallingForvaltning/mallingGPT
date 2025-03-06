@@ -42,6 +42,7 @@ export const ChatMenuItem: FC<ChatMenuItemProps> = (props) => {
             : ""
         )}
       >
+        
         {props.children}
       </Link>
       <DropdownMenu>
