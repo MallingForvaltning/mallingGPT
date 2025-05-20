@@ -1,13 +1,16 @@
 import { AddExtension } from "@/features/extensions-page/add-extension/add-new-extension";
-import { ExtensionCard } from "@/features/extensions-page/extension-card/extension-card";
 import { ExtensionModel } from "@/features/extensions-page/extension-services/models";
-import { PersonaCard } from "@/features/persona-page/persona-card/persona-card";
 import { PersonaModel } from "@/features/persona-page/persona-services/models";
 import { AI_DESCRIPTION, AI_NAME } from "@/features/theme/theme-config";
 import { Hero } from "@/features/ui/hero";
 import { ScrollArea } from "@/features/ui/scroll-area";
+import { TypewriterText } from "@/features/ui/typewriter-text";
+import { Button } from "@/features/ui/button";
+import { CreateChatAndRedirect } from "@/features/chat-page/chat-services/chat-thread-service";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
+import { MessageCircle, VenetianMask } from "lucide-react";
 
 interface ChatPersonaProps {
   personas: PersonaModel[];
@@ -31,33 +34,25 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
               {AI_NAME}
             </>
           }
-          description={AI_DESCRIPTION}
-        ></Hero>
+          description={<TypewriterText text={AI_DESCRIPTION} />}
+        >
+          <form action={CreateChatAndRedirect} className="w-full">
+            <Button
+              className="bg-mallingBurgund-800 hover:bg-mallingBurgund-700 text-white text-lg px-6 py-4 w-full flex gap-2 justify-center"
+            >
+              <MessageCircle size={20} /> Ny samtale
+            </Button>
+          </form>
+          <Link href="/persona" className="w-full">
+            <Button
+              variant="outline"
+              className="w-full flex gap-2 justify-center text-mallingBurgund-800 border-mallingBurgund-800"
+            >
+              <VenetianMask size={20} /> Personligheter
+            </Button>
+          </Link>
+        </Hero>
 
-      
-        <div className="container max-w-4xl flex gap-20 flex-col">
-          <div>
-            <h2 className="text-2xl font-bold mb-3">Personlighet</h2>
-
-            {props.personas && props.personas.length > 0 ? (
-              <div className="grid grid-cols-3 gap-3">
-                {props.personas.map((persona) => {
-                  return (
-                    <PersonaCard
-                      persona={persona}
-                      key={persona.id}
-                      showContextMenu={false}
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              <p className="text-muted-foreground max-w-xl">
-                Du har ikke laget noen personligheter
-              </p>
-            )}
-          </div>
-        </div>
         <AddExtension />
       </main>
     </ScrollArea>
