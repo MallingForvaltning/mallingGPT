@@ -130,13 +130,20 @@ export const SoftDeleteChatThreadForCurrentUser = async (
       }
       const chats = chatResponse.response;
 
-      chats.forEach(async (chat) => {
+      for (const chat of chats) {
         const itemToUpdate = {
           ...chat,
+          isDeleted: true,
         };
-        itemToUpdate.isDeleted = true;
-        await HistoryContainer().items.upsert(itemToUpdate);
-      });
+        try {
+          await HistoryContainer().items.upsert(itemToUpdate);
+        } catch (e) {
+          return {
+            status: "ERROR",
+            errors: [{ message: `${e}` }],
+          };
+        }
+      }
 
       const chatDocumentsResponse = await FindAllChatDocuments(chatThreadID);
 
@@ -150,13 +157,20 @@ export const SoftDeleteChatThreadForCurrentUser = async (
         await DeleteDocuments(chatThreadID);
       }
 
-      chatDocuments.forEach(async (chatDocument: ChatDocumentModel) => {
+      for (const chatDocument of chatDocuments) {
         const itemToUpdate = {
           ...chatDocument,
+          isDeleted: true,
         };
-        itemToUpdate.isDeleted = true;
-        await HistoryContainer().items.upsert(itemToUpdate);
-      });
+        try {
+          await HistoryContainer().items.upsert(itemToUpdate);
+        } catch (e) {
+          return {
+            status: "ERROR",
+            errors: [{ message: `${e}` }],
+          };
+        }
+      }
 
       chatThreadResponse.response.isDeleted = true;
       await HistoryContainer().items.upsert(chatThreadResponse.response);

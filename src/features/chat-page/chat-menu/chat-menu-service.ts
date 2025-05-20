@@ -24,11 +24,17 @@ export const DeleteAllChatThreads = async (): Promise<
 
   if (chatThreadResponse.status === "OK") {
     const chatThreads = chatThreadResponse.response;
-    const promise = chatThreads.map(async (chatThread) => {
-      return SoftDeleteChatThreadForCurrentUser(chatThread.id);
-    });
 
-    await Promise.all(promise);
+    for (const chatThread of chatThreads) {
+      const result = await SoftDeleteChatThreadForCurrentUser(chatThread.id);
+      if (result.status !== "OK") {
+        return {
+          status: result.status,
+          errors: result.errors,
+        };
+      }
+    }
+
     RevalidateCache({
       page: "chat",
       type: "layout",
