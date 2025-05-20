@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from "react";
 
 interface HeroProps extends PropsWithChildren {
   title: React.ReactNode;
-  description: string;
+  description: React.ReactNode;
 }
 
 export const Hero: FC<HeroProps> = (props) => {
