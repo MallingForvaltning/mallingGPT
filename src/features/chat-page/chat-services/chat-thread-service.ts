@@ -6,7 +6,7 @@ import {
   userHashedId,
   userSession,
 } from "@/features/auth-page/helpers";
-import { RedirectToChatThread } from "@/features/common/navigation-helpers";
+import { RedirectToChatThread, RevalidateCache } from "@/features/common/navigation-helpers";
 import { ServerActionResponse } from "@/features/common/server-action-response";
 import { uniqueId } from "@/features/common/util";
 import {
@@ -372,6 +372,32 @@ export const UpdateChatTitle = async (
       status: "ERROR",
       errors: [{ message: `${error}` }],
     };
+  }
+};
+
+export const UpdateChatThreadDeployment = async (props: {
+  chatThreadId: string;
+  deploymentName: string;
+}): Promise<ServerActionResponse<ChatThreadModel>> => {
+  const response = await FindChatThreadForCurrentUser(props.chatThreadId);
+  if (response.status === "OK") {
+    const chatThread = response.response;
+    chatThread.deploymentName = props.deploymentName;
+    return await UpsertChatThread(chatThread);
+  }
+  return response;
+};
+
+export const UpdateChatDeploymentAction = async (formData: FormData) => {
+  const chatThreadId = formData.get("chatThreadId") as string;
+  const deploymentName = formData.get("deploymentName") as string;
+  if (!chatThreadId || !deploymentName) return;
+  const response = await UpdateChatThreadDeployment({
+    chatThreadId,
+    deploymentName,
+  });
+  if (response.status === "OK") {
+    RevalidateCache({ page: "chat", params: chatThreadId });
   }
 };
 

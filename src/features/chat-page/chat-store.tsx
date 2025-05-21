@@ -123,6 +123,12 @@ class ChatState {
     this.autoScroll = value;
   }
 
+  public updateDeploymentName(deploymentName: string) {
+    if (this.chatThread) {
+      this.chatThread.deploymentName = deploymentName;
+    }
+  }
+
   private reset() {
     this.input = "";
     ResetInputRows();
