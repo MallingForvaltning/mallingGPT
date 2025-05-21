@@ -37,4 +37,23 @@ Once the secrets are configured, the GitHub Actions will be triggered for every 
 
 ![Workflow screenshot](/docs/images/runworkflow.png)
 
+## Additional OpenAI deployments
+
+The Bicep templates deploy a default ChatGPT and embedding model. You can create extra deployments by passing them through the `additionalOpenAIDeployments` parameter. Each entry should define `name`, `modelName`, `modelVersion` and `capacity`:
+
+```json
+{
+  "additionalOpenAIDeployments": {
+    "value": [
+      {
+        "name": "gpt4turbo",
+        "modelName": "gpt-4-turbo",
+        "modelVersion": "2024-04-01",
+        "capacity": 25
+      }
+    ]
+  }
+}
+```
+
 [Next](/docs/5-add-identity.md)
