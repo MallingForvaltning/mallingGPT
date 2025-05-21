@@ -3,6 +3,11 @@ import { OpenAI } from "openai";
 export const OpenAIInstance = (deploymentName?: string) => {
   const endpointSuffix = process.env.AZURE_OPENAI_API_ENDPOINT_SUFFIX || "openai.azure.com";
   const deployment = deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
+  if (!deployment) {
+    throw new Error(
+      "Azure OpenAI deployment name is not set. Provide a deployment name or set AZURE_OPENAI_API_DEPLOYMENT_NAME."
+    );
+  }
   const openai = new OpenAI({
     apiKey: process.env.AZURE_OPENAI_API_KEY,
     baseURL: `https://${process.env.AZURE_OPENAI_API_INSTANCE_NAME}.${endpointSuffix}/openai/deployments/${deployment}`,
