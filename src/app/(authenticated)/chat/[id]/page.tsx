@@ -3,6 +3,7 @@ import { FindAllChatDocuments } from "@/features/chat-page/chat-services/chat-do
 import { FindAllChatMessagesForCurrentUser } from "@/features/chat-page/chat-services/chat-message-service";
 import { FindChatThreadForCurrentUser } from "@/features/chat-page/chat-services/chat-thread-service";
 import { FindAllExtensionForCurrentUser } from "@/features/extensions-page/extension-services/extension-service";
+import { getModelDeploymentMapping } from "@/features/common/services/model-mapping";
 import { AI_NAME } from "@/features/theme/theme-config";
 import { DisplayError } from "@/features/ui/error/display-error";
 
@@ -26,6 +27,7 @@ export default async function Home(props: HomeParams) {
       FindAllChatDocuments(id),
       FindAllExtensionForCurrentUser(),
     ]);
+  const modelMapping = getModelDeploymentMapping();
 
   if (docsResponse.status !== "OK") {
     return <DisplayError errors={docsResponse.errors} />;
@@ -49,6 +51,7 @@ export default async function Home(props: HomeParams) {
       chatThread={chatThreadResponse.response}
       chatDocuments={docsResponse.response}
       extensions={extensionResponse.response}
+      modelMapping={modelMapping}
     />
   );
 }

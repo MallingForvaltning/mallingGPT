@@ -1,5 +1,30 @@
 import { OpenAI } from "openai";
 
+type VersionMap = Record<string, string>;
+
+let deploymentVersionMap: VersionMap | null = null;
+
+const getApiVersion = (deployment: string): string | undefined => {
+  if (!deploymentVersionMap) {
+    const env = process.env.AZURE_OPENAI_DEPLOYMENT_API_VERSIONS;
+    if (env) {
+      try {
+        deploymentVersionMap = JSON.parse(env) as VersionMap;
+      } catch (err) {
+        console.warn(
+          "Failed to parse AZURE_OPENAI_DEPLOYMENT_API_VERSIONS:",
+          err
+        );
+        deploymentVersionMap = {};
+      }
+    } else {
+      deploymentVersionMap = {};
+    }
+  }
+
+  return deploymentVersionMap[deployment] || process.env.AZURE_OPENAI_API_VERSION;
+};
+
 export const OpenAIInstance = (deploymentName?: string) => {
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
   const instanceName = process.env.AZURE_OPENAI_API_INSTANCE_NAME;
@@ -16,7 +41,7 @@ export const OpenAIInstance = (deploymentName?: string) => {
   const openai = new OpenAI({
     apiKey,
     baseURL: `https://${instanceName}.${endpointSuffix}/openai/deployments/${deployment}`,
-    defaultQuery: { "api-version": process.env.AZURE_OPENAI_API_VERSION },
+    defaultQuery: { "api-version": getApiVersion(deployment) },
     defaultHeaders: { "api-key": apiKey },
   });
   return openai;

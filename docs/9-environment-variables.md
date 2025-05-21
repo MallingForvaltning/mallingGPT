@@ -9,3 +9,12 @@ The application expects the `AZURE_OPENAI_MODEL_DEPLOYMENTS` variable to map mod
   "gpt-4o": "gpt-4o",
   "o4-mini": "o4-mini"
 }
+```
+
+Use `AZURE_OPENAI_DEPLOYMENT_API_VERSIONS` to override the API version for deployments when required:
+
+```json
+{
+  "o4-mini": "2024-12-01-preview"
+}
+```
