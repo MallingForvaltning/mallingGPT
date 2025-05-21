@@ -24,3 +24,5 @@ The API will now be reachable at `http://localhost:3000`.
 
 For information on the required variables, see [Environment variables](./9-environment-variables.md).
 
+
+[Next](/docs/8-extensions.md)
