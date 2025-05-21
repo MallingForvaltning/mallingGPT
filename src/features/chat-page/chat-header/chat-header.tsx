@@ -1,3 +1,4 @@
+"use client";
 import { ExtensionModel } from "@/features/extensions-page/extension-services/models";
 import { CHAT_DEFAULT_PERSONA } from "@/features/theme/theme-config";
 import { VenetianMask } from "lucide-react";
@@ -7,11 +8,15 @@ import { ChatDocumentModel, ChatThreadModel } from "../chat-services/models";
 import { DocumentDetail } from "./document-detail";
 import { ExtensionDetail } from "./extension-detail";
 import { PersonaDetail } from "./persona-detail";
+import { UpdateChatDeploymentAction } from "../chat-services/chat-thread-service";
+import { chatStore } from "../chat-store";
 
 interface Props {
   chatThread: ChatThreadModel;
   chatDocuments: Array<ChatDocumentModel>;
   extensions: Array<ExtensionModel>;
+  showModelSelect?: boolean;
+  modelMapping?: Record<string, string>;
 }
 
 export const ChatHeader: FC<Props> = (props) => {
@@ -54,6 +59,27 @@ export const ChatHeader: FC<Props> = (props) => {
             installedExtensionIds={props.chatThread.extension}
             chatThreadId={props.chatThread.id}
           />
+          {props.showModelSelect && props.modelMapping && (
+            <form action={UpdateChatDeploymentAction} className="flex gap-2">
+              <input type="hidden" name="chatThreadId" value={props.chatThread.id} />
+              <select
+                name="deploymentName"
+                defaultValue={props.chatThread.deploymentName}
+                className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                onChange={(e) => {
+                  chatStore.updateDeploymentName(e.currentTarget.value);
+                  e.currentTarget.form?.requestSubmit();
+                }}
+                aria-label="Velg modell"
+              >
+                {Object.entries(props.modelMapping).map(([model, deployment]) => (
+                  <option key={model} value={deployment}>
+                    {model}
+                  </option>
+                ))}
+              </select>
+            </form>
+          )}
         </div>
       </div>
     </div>

@@ -22,10 +22,13 @@ interface ChatPageProps {
   chatThread: ChatThreadModel;
   chatDocuments: Array<ChatDocumentModel>;
   extensions: Array<ExtensionModel>;
+  modelMapping: Record<string, string>;
 }
 
 export const ChatPage: FC<ChatPageProps> = (props) => {
   const { data: session } = useSession();
+
+  const showModelSelect = Object.keys(props.modelMapping || {}).length > 0;
 
   useEffect(() => {
     chatStore.initChatSession({
@@ -47,6 +50,8 @@ export const ChatPage: FC<ChatPageProps> = (props) => {
         chatThread={props.chatThread}
         chatDocuments={props.chatDocuments}
         extensions={props.extensions}
+        showModelSelect={showModelSelect}
+        modelMapping={props.modelMapping}
       />
       <ChatMessageContainer ref={current}>
         <ChatMessageContentArea>
