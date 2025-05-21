@@ -17,6 +17,8 @@
 > `deploymentName` field of `ChatThreadModel`. When starting a new chat you can
 > specify this deployment name. If omitted, the app uses the deployment name from
 > the `AZURE_OPENAI_API_DEPLOYMENT_NAME` environment variable.
+> See the [environment variables documentation](/docs/9-environment-variables.md)
+> for how to configure multiple deployments with `AZURE_OPENAI_MODEL_DEPLOYMENTS`.
 
 # Introduction
 
