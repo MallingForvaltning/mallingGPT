@@ -25,58 +25,59 @@ interface ChatPageProps {
   modelMapping: Record<string, string>;
 }
 
-export const ChatPage: FC<ChatPageProps> = (props) => {
+export const ChatPage: FC<ChatPageProps> = ({
+  messages: initialMessages,
+  chatThread,
+  chatDocuments,
+  extensions,
+  modelMapping,
+}) => {
   const { data: session } = useSession();
 
-  const showModelSelect = Object.keys(props.modelMapping || {}).length > 0;
+  // Show model selector whenever a mapping object is provided
+  const showModelSelect = Object.keys(modelMapping).length > 0;
 
   useEffect(() => {
     chatStore.initChatSession({
-      chatThread: props.chatThread,
-      messages: props.messages,
+      chatThread,
+      messages: initialMessages,
       userName: session?.user?.name!,
     });
-  }, [props.messages, session?.user?.name, props.chatThread]);
+  }, [initialMessages, session?.user?.name, chatThread]);
 
   const { messages, loading } = useChat();
-
-  const current = useRef<HTMLDivElement>(null);
-
-  useChatScrollAnchor({ ref: current });
+  const scrollAnchor = useRef<HTMLDivElement>(null);
+  useChatScrollAnchor({ ref: scrollAnchor });
 
   return (
     <main className="flex flex-1 relative flex-col">
       <ChatHeader
-        chatThread={props.chatThread}
-        chatDocuments={props.chatDocuments}
-        extensions={props.extensions}
+        chatThread={chatThread}
+        chatDocuments={chatDocuments}
+        extensions={extensions}
         showModelSelect={showModelSelect}
-        modelMapping={props.modelMapping}
+        modelMapping={modelMapping}
       />
-      <ChatMessageContainer ref={current}>
+
+      <ChatMessageContainer ref={scrollAnchor}>
         <ChatMessageContentArea>
-          {messages.map((message) => {
-            return (
-              <ChatMessageArea
-                key={message.id}
-                profileName={message.name}
-                role={message.role}
-                onCopy={() => {
-                  navigator.clipboard.writeText(message.content);
-                }}
-                profilePicture={
-                  message.role === "assistant"
-                    ? "/ai-icon.png"
-                    : session?.user?.image
-                }
-              >
-                <MessageContent message={message} />
-              </ChatMessageArea>
-            );
-          })}
+          {messages.map((msg) => (
+            <ChatMessageArea
+              key={msg.id}
+              profileName={msg.name}
+              role={msg.role}
+              onCopy={() => navigator.clipboard.writeText(msg.content)}
+              profilePicture={
+                msg.role === "assistant" ? "/ai-icon.png" : session?.user?.image
+              }
+            >
+              <MessageContent message={msg} />
+            </ChatMessageArea>
+          ))}
           {loading === "loading" && <ChatLoading />}
         </ChatMessageContentArea>
       </ChatMessageContainer>
+
       <ChatInput />
     </main>
   );
