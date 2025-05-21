@@ -52,9 +52,16 @@ export const FindAllChatThreadForCurrentUser = async (): Promise<
         partitionKey: await userHashedId(),
       })
       .fetchAll();
+    const threads = resources.map((t) => ({
+      ...t,
+      deploymentName:
+        t.deploymentName ||
+        process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME ||
+        "",
+    }));
     return {
       status: "OK",
-      response: resources,
+      response: threads,
     };
   } catch (error) {
     return {
@@ -101,10 +108,17 @@ export const FindChatThreadForCurrentUser = async (
         errors: [{ message: `Chat thread not found` }],
       };
     }
+    const thread = {
+      ...resources[0],
+      deploymentName:
+        resources[0].deploymentName ||
+        process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME ||
+        "",
+    };
 
     return {
       status: "OK",
-      response: resources[0],
+      response: thread,
     };
   } catch (error) {
     return {
@@ -194,6 +208,10 @@ export const EnsureChatThreadOperation = async (
 
   if (response.status === "OK") {
     if (currentUser.isAdmin || response.response.userId === hashedId) {
+      if (!response.response.deploymentName) {
+        response.response.deploymentName =
+          process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME || "";
+      }
       return response;
     }
   }
