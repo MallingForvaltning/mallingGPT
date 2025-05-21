@@ -1,18 +1,23 @@
 import { OpenAI } from "openai";
 
 export const OpenAIInstance = (deploymentName?: string) => {
-  const endpointSuffix = process.env.AZURE_OPENAI_API_ENDPOINT_SUFFIX || "openai.azure.com";
+  const apiKey = process.env.AZURE_OPENAI_API_KEY;
+  const instanceName = process.env.AZURE_OPENAI_API_INSTANCE_NAME;
   const deployment = deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
-  if (!deployment) {
+
+  if (!apiKey || !instanceName || !deployment) {
     throw new Error(
-      "Azure OpenAI deployment name is not set. Provide a deployment name or set AZURE_OPENAI_API_DEPLOYMENT_NAME."
+      "Azure OpenAI endpoint config is not set, check environment variables."
     );
   }
+
+  const endpointSuffix = process.env.AZURE_OPENAI_API_ENDPOINT_SUFFIX || "openai.azure.com";
+
   const openai = new OpenAI({
-    apiKey: process.env.AZURE_OPENAI_API_KEY,
-    baseURL: `https://${process.env.AZURE_OPENAI_API_INSTANCE_NAME}.${endpointSuffix}/openai/deployments/${deployment}`,
+    apiKey,
+    baseURL: `https://${instanceName}.${endpointSuffix}/openai/deployments/${deployment}`,
     defaultQuery: { "api-version": process.env.AZURE_OPENAI_API_VERSION },
-    defaultHeaders: { "api-key": process.env.AZURE_OPENAI_API_KEY },
+    defaultHeaders: { "api-key": apiKey },
   });
   return openai;
 };
