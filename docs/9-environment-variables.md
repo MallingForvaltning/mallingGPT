@@ -2,13 +2,15 @@
 
 Refer to the [`.env.example`](../src/.env.example) for the required environment variables.
 
-
-The application expects the `AZURE_OPENAI_MODEL_DEPLOYMENTS` variable to contain the names of each Azure OpenAI deployment. Use a JSON string in the following format:
+The application expects the `AZURE_OPENAI_MODEL_DEPLOYMENTS` variable to map model names to the corresponding deployment names. Provide the mappings using a JSON string like the following:
 
 ```json
-{"gpt-4o","o4-mini"}
+{
+  "gpt-35-turbo": "turbo-deployment",
+  "gpt-4o": "gpt-4o-deployment"
+}
 ```
-=======
+
 Key OpenAI settings include:
 
 - `AZURE_OPENAI_API_INSTANCE_NAME` – your Azure OpenAI resource name.
