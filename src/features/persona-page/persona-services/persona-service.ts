@@ -283,7 +283,8 @@ export const FindAllPersonaForCurrentUser = async (): Promise<
 };
 
 export const CreatePersonaChat = async (
-  personaId: string
+  personaId: string,
+  deploymentName?: string
 ): Promise<ServerActionResponse<ChatThreadModel>> => {
   const personaResponse = await FindPersonaByID(personaId);
   const user = await getCurrentUser();
@@ -304,6 +305,8 @@ export const CreatePersonaChat = async (
       personaMessage: persona.personaMessage,
       personaMessageTitle: persona.name,
       extension: [],
+      deploymentName:
+        deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME || "",
     });
 
     return response;

@@ -1,10 +1,11 @@
 import { OpenAI } from "openai";
 
-export const OpenAIInstance = () => {
+export const OpenAIInstance = (deploymentName?: string) => {
   const endpointSuffix = process.env.AZURE_OPENAI_API_ENDPOINT_SUFFIX || "openai.azure.com";
+  const deployment = deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
   const openai = new OpenAI({
     apiKey: process.env.AZURE_OPENAI_API_KEY,
-    baseURL: `https://${process.env.AZURE_OPENAI_API_INSTANCE_NAME}.${endpointSuffix}/openai/deployments/${process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME}`,
+    baseURL: `https://${process.env.AZURE_OPENAI_API_INSTANCE_NAME}.${endpointSuffix}/openai/deployments/${deployment}`,
     defaultQuery: { "api-version": process.env.AZURE_OPENAI_API_VERSION },
     defaultHeaders: { "api-key": process.env.AZURE_OPENAI_API_KEY },
   });

@@ -33,6 +33,7 @@ export interface ChatThreadModel {
   personaMessage: string;
   personaMessageTitle: string;
   extension: string[];
+  deploymentName: string;
   type: typeof CHAT_THREAD_ATTRIBUTE;
 }
 

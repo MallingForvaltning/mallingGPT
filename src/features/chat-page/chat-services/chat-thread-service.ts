@@ -262,6 +262,11 @@ export const UpsertChatThread = async (
       }
     }
 
+    if (!chatThread.deploymentName) {
+      chatThread.deploymentName =
+        process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME || "";
+    }
+
     chatThread.lastMessageAt = new Date();
     const { resource } = await HistoryContainer().items.upsert<ChatThreadModel>(
       chatThread
@@ -286,7 +291,9 @@ export const UpsertChatThread = async (
   }
 };
 
-export const CreateChatThread = async (): Promise<
+export const CreateChatThread = async (
+  deploymentName?: string
+): Promise<
   ServerActionResponse<ChatThreadModel>
 > => {
   try {
@@ -303,6 +310,8 @@ export const CreateChatThread = async (): Promise<
       personaMessage: "",
       personaMessageTitle: CHAT_DEFAULT_PERSONA,
       extension: [],
+      deploymentName:
+        deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME || "",
     };
 
     const { resource } = await HistoryContainer().items.create<ChatThreadModel>(
