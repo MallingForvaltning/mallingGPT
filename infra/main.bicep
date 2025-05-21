@@ -30,6 +30,9 @@ param embeddingDeploymentName string = 'embedding'
 param embeddingDeploymentCapacity int = 120
 param embeddingModelName string = 'text-embedding-3-large'
 
+@description('Optional array of additional OpenAI deployments to create. Each item should contain name, modelName, modelVersion and capacity properties.')
+param additionalOpenAIDeployments array = []
+
 // DALL-E v3 only supported in limited regions for now
 @description('Location for the OpenAI DALL-E 3 instance resource group')
 @allowed(['swedencentral', 'eastus', 'australiaeast'])
@@ -76,6 +79,7 @@ module resources 'resources.bicep' = {
     embeddingDeploymentName: embeddingDeploymentName
     embeddingDeploymentCapacity: embeddingDeploymentCapacity
     embeddingModelName: embeddingModelName
+    additionalOpenAIDeployments: additionalOpenAIDeployments
     location: location
   }
 }

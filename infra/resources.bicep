@@ -10,6 +10,8 @@ param chatGptModelVersion string
 param embeddingDeploymentName string
 param embeddingDeploymentCapacity int
 param embeddingModelName string
+@description('Optional array of additional OpenAI deployments to create.')
+param additionalOpenAIDeployments array = []
 param location string = resourceGroup().location
 
 var openai_name = toLower('${name}-aillm-${resourceToken}')
@@ -49,8 +51,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
   }
 }
 
-@batchSize(1)
-resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = [for deployment in [
+var defaultDeployments = [
   {
     name: chatGptDeploymentName
     model: {
@@ -72,11 +73,16 @@ resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05
     }
     capacity: embeddingDeploymentCapacity
   }
-]: {
+]
+
+var deployments = concat(defaultDeployments, additionalOpenAIDeployments)
+
+@batchSize(1)
+resource llmdeployment 'Microsoft.CognitiveServices/accounts/deployments@2023-05-01' = [for deployment in deployments: {
   parent: azureopenai
   name: deployment.name
   properties: {
     model: deployment.model
   }
   sku: deployment.sku
-}]
+}] 
