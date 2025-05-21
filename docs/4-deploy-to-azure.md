@@ -31,6 +31,11 @@ The GitHub workflow requires a secret named `AZURE_CREDENTIALS` to authenticate 
 
 Under the same repository secrets add a new variable `AZURE_APP_SERVICE_NAME` to deploy to your Azure Web app. The value of this secret is the name of your Azure Web app e.g. `my-web-app-name` from the domain https://my-web-app-name.azurewebsites.net/
 
+> **Note**
+> If you used the Azure portal to set up deployment, it may have created an
+> additional GitHub Actions workflow file. Delete that file and keep only the
+> `open-ai-app.yml` workflow to avoid `409 Conflict` errors during deployment.
+
 ### 3. Run GitHub Actions
 
 Once the secrets are configured, the GitHub Actions will be triggered for every code push to the repository. Alternatively, you can manually run the workflow by clicking on the "Run Workflow" button in the Actions tab in GitHub.
