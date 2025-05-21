@@ -6,8 +6,7 @@ The application expects the `AZURE_OPENAI_MODEL_DEPLOYMENTS` variable to map mod
 
 ```json
 {
-  "gpt-35-turbo": "turbo-deployment",
-  "gpt-4o": "gpt-4o-deployment"
+  "gpt-4o": "o4-mini"
 }
 ```
 
