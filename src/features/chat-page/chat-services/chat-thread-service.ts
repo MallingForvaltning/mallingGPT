@@ -375,8 +375,9 @@ export const UpdateChatTitle = async (
   }
 };
 
-export const CreateChatAndRedirect = async () => {
-  const response = await CreateChatThread();
+export const CreateChatAndRedirect = async (formData: FormData) => {
+  const deploymentName = formData.get("deploymentName") as string | null;
+  const response = await CreateChatThread(deploymentName || undefined);
   if (response.status === "OK") {
     RedirectToChatThread(response.response.id);
   }
