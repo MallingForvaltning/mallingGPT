@@ -5,3 +5,8 @@ Dockerfile
 .git
 .gitignore
 src/.next
+
+# Ignore local environment files
+.env
+.env.*
+src/.env*
