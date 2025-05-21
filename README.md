@@ -12,6 +12,12 @@
 1. [Environment variables](/docs/9-environment-variables.md)
 1. [Migration considerations](/docs/migration.md)
 
+> **Note**
+> Each conversation stores the Azure OpenAI deployment it uses in the
+> `deploymentName` field of `ChatThreadModel`. When starting a new chat you can
+> specify this deployment name. If omitted, the app uses the deployment name from
+> the `AZURE_OPENAI_API_DEPLOYMENT_NAME` environment variable.
+
 # Introduction
 
 _Azure Chat Solution Accelerator powered by Azure OpenAI Service_
