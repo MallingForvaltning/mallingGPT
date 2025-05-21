@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 interface Props {
   text: string;
@@ -8,14 +8,15 @@ interface Props {
 
 export const TypewriterText: FC<Props> = ({ text, speed = 40 }) => {
   const [displayed, setDisplayed] = useState("");
+  const indexRef = useRef(0);
 
   useEffect(() => {
     setDisplayed("");
-    let index = 0;
+    indexRef.current = 0;
     const id = setInterval(() => {
-      setDisplayed((prev) => prev + text.charAt(index));
-      index += 1;
-      if (index >= text.length) {
+      setDisplayed(text.slice(0, indexRef.current + 1));
+      indexRef.current += 1;
+      if (indexRef.current >= text.length) {
         clearInterval(id);
       }
     }, speed);
