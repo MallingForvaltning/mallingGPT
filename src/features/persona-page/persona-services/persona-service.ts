@@ -304,6 +304,7 @@ export const CreatePersonaChat = async (
       personaMessage: persona.personaMessage,
       personaMessageTitle: persona.name,
       extension: [],
+      deploymentName: process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
     });
 
     return response;
@@ -326,3 +327,4 @@ const ValidateSchema = (model: PersonaModel): ServerActionResponse => {
     response: model,
   };
 };
+

@@ -7,6 +7,8 @@ import { ScrollArea } from "@/features/ui/scroll-area";
 import { TypewriterText } from "@/features/ui/typewriter-text";
 import { Button } from "@/features/ui/button";
 import { CreateChatAndRedirect } from "@/features/chat-page/chat-services/chat-thread-service";
+import { ModelSelect } from "@/features/chat-page/model-select";
+import { getModelDeployments } from "@/features/common/services/model-deployments";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
@@ -18,6 +20,7 @@ interface ChatPersonaProps {
 }
 
 export const ChatHome: FC<ChatPersonaProps> = (props) => {
+  const models = getModelDeployments();
   return (
     <ScrollArea className="flex-1">
       <main className="flex flex-1 flex-col gap-6 pb-6">
@@ -36,9 +39,10 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
           }
           description={<TypewriterText text={AI_DESCRIPTION} />}
         >
-          <form action={CreateChatAndRedirect} className="w-full">
+          <form action={CreateChatAndRedirect} className="w-full flex gap-2">
+            <ModelSelect models={models} defaultValue={process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME} />
             <Button
-              className="bg-mallingBurgund-800 hover:bg-mallingBurgund-700 text-white text-lg px-6 py-4 w-full flex gap-2 justify-center"
+              className="bg-mallingBurgund-800 hover:bg-mallingBurgund-700 text-white text-lg px-6 py-4 flex-1 flex gap-2 justify-center"
             >
               <MessageCircle size={20} /> Ny samtale
             </Button>
@@ -58,3 +62,4 @@ export const ChatHome: FC<ChatPersonaProps> = (props) => {
     </ScrollArea>
   );
 };
+

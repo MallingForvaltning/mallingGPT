@@ -255,6 +255,9 @@ export const UpsertChatThread = async (
   chatThread: ChatThreadModel
 ): Promise<ServerActionResponse<ChatThreadModel>> => {
   try {
+    if (!chatThread.deploymentName) {
+      chatThread.deploymentName = process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
+    }
     if (chatThread.id) {
       const response = await EnsureChatThreadOperation(chatThread.id);
       if (response.status !== "OK") {
@@ -286,9 +289,9 @@ export const UpsertChatThread = async (
   }
 };
 
-export const CreateChatThread = async (): Promise<
-  ServerActionResponse<ChatThreadModel>
-> => {
+export const CreateChatThread = async (
+  deploymentName?: string
+): Promise<ServerActionResponse<ChatThreadModel>> => {
   try {
     const modelToSave: ChatThreadModel = {
       name: NEW_CHAT_NAME,
@@ -303,6 +306,7 @@ export const CreateChatThread = async (): Promise<
       personaMessage: "",
       personaMessageTitle: CHAT_DEFAULT_PERSONA,
       extension: [],
+      deploymentName: deploymentName || process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
     };
 
     const { resource } = await HistoryContainer().items.create<ChatThreadModel>(
@@ -348,9 +352,13 @@ export const UpdateChatTitle = async (
   }
 };
 
-export const CreateChatAndRedirect = async () => {
-  const response = await CreateChatThread();
+export const CreateChatAndRedirect = async (formData: FormData) => {
+  const deploymentName =
+    (formData.get("model") as string) ||
+    process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME;
+  const response = await CreateChatThread(deploymentName);
   if (response.status === "OK") {
     RedirectToChatThread(response.response.id);
   }
 };
+
