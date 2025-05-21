@@ -5,10 +5,7 @@ Refer to the [`.env.example`](../src/.env.example) for the required environment 
 The application expects the `AZURE_OPENAI_MODEL_DEPLOYMENTS` variable to map model names to the corresponding deployment names. Provide the mappings using a JSON string like the following:
 
 ```json
-{
-  "gpt-35-turbo": "turbo-deployment",
-  "gpt-4o": "gpt-4o-deployment"
-}
+{"gpt-4o":"gpt4o-deployment","o4-mini":"o4-mini-deployment"}
 ```
 
 Key OpenAI settings include:
