@@ -2,6 +2,7 @@
 
 import {
   ResetInputRows,
+  UpdateInputRows,
   onKeyDown,
   onKeyUp,
   useChatInputDynamicHeight,
@@ -73,6 +74,7 @@ export const ChatInput = () => {
         rows={rows}
         onChange={(e) => {
           chatStore.updateInput(e.currentTarget.value);
+          UpdateInputRows(e.currentTarget.value);
         }}
       />
       <ChatInputActionArea>

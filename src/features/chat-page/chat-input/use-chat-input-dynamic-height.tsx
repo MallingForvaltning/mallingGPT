@@ -18,6 +18,11 @@ export const SetInputRows = (rows: number) => {
   }
 };
 
+export const UpdateInputRows = (text: string) => {
+  const lines = text.split("\n").length;
+  state.rows = Math.min(lines, MAX_ROWS);
+};
+
 export const SetInputRowsToMax = () => {
   state.rows = MAX_ROWS;
 };
