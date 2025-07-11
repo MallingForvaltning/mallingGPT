@@ -27,7 +27,7 @@ export const ChatTextInput = React.forwardRef<
   return (
     <textarea
       ref={ref}
-      className="p-4 w-full focus:outline-none bg-transparent resize-none"
+      className="p-4 w-full focus:outline-none bg-transparent resize-none overflow-y-auto"
       placeholder="Skriv ny melding her..."
       onPaste={handlePaste}
       {...props}
