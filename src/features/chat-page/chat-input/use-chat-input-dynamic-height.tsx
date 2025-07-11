@@ -12,16 +12,6 @@ const state = proxy<ChatInputStoreProps>({
   keysPressed: new Set(),
 });
 
-export const SetInputRows = (rows: number) => {
-  if (rows < MAX_ROWS) {
-    state.rows = rows + 1;
-  }
-};
-
-export const UpdateInputRows = (text: string) => {
-  const lines = text.split("\n").length;
-  state.rows = Math.min(lines, MAX_ROWS);
-};
 
 export const SetInputRowsToMax = () => {
   state.rows = MAX_ROWS;
@@ -31,16 +21,20 @@ export const ResetInputRows = () => {
   state.rows = 1;
 };
 
+export const UpdateRowsFromTextArea = (
+  textarea: HTMLTextAreaElement | null
+) => {
+  if (!textarea) return;
+  const lines = textarea.value.split("\n").length;
+  state.rows = Math.min(lines, MAX_ROWS);
+};
+
 export const onKeyDown = (
   event: React.KeyboardEvent<HTMLTextAreaElement>,
   submit: () => void
 ) => {
   state.keysPressed.add(event.key);
   const snap = snapshot(state);
-  if (snap.keysPressed.has("Enter") && snap.keysPressed.has("Shift")) {
-    SetInputRows(state.rows + 1);
-  }
-
   if (
     !event.nativeEvent.isComposing &&
     snap.keysPressed.has("Enter") &&

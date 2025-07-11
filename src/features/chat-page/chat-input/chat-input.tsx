@@ -2,7 +2,7 @@
 
 import {
   ResetInputRows,
-  UpdateInputRows,
+  UpdateRowsFromTextArea,
   onKeyDown,
   onKeyUp,
   useChatInputDynamicHeight,
@@ -42,6 +42,7 @@ export const ChatInput = () => {
 
   const submitButton = React.useRef<HTMLButtonElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
   const submit = () => {
     if (formRef.current) {
@@ -59,12 +60,18 @@ export const ChatInput = () => {
       status={uploadButtonLabel}
     >
       <ChatTextInput
+        ref={textAreaRef}
         onBlur={(e) => {
           if (e.currentTarget.value.replace(/\s/g, "").length === 0) {
             ResetInputRows();
           }
         }}
         onKeyDown={(e) => {
+          if (e.key === "Enter" && e.shiftKey) {
+            setTimeout(() => {
+              UpdateRowsFromTextArea(textAreaRef.current);
+            });
+          }
           onKeyDown(e, submit);
         }}
         onKeyUp={(e) => {
@@ -74,7 +81,7 @@ export const ChatInput = () => {
         rows={rows}
         onChange={(e) => {
           chatStore.updateInput(e.currentTarget.value);
-          UpdateInputRows(e.currentTarget.value);
+          UpdateRowsFromTextArea(textAreaRef.current);
         }}
       />
       <ChatInputActionArea>
