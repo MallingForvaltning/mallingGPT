@@ -25,8 +25,10 @@ export const UpdateRowsFromTextArea = (
   textarea: HTMLTextAreaElement | null
 ) => {
   if (!textarea) return;
-  const lines = textarea.value.split("\n").length;
-  state.rows = Math.min(lines, MAX_ROWS);
+  const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+  if (!lineHeight) return;
+  const rows = Math.ceil(textarea.scrollHeight / lineHeight);
+  state.rows = Math.min(rows, MAX_ROWS);
 };
 
 export const onKeyDown = (
