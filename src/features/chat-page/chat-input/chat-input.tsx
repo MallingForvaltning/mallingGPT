@@ -60,30 +60,37 @@ export const ChatInput = () => {
       status={uploadButtonLabel}
     >
       <ChatTextInput
-        ref={textAreaRef}
-        onBlur={(e) => {
-          if (e.currentTarget.value.replace(/\s/g, "").length === 0) {
-            ResetInputRows();
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && e.shiftKey) {
-            setTimeout(() => {
-              UpdateRowsFromTextArea(textAreaRef.current);
-            });
-          }
-          onKeyDown(e, submit);
-        }}
-        onKeyUp={(e) => {
-          onKeyUp(e);
-        }}
-        value={input}
-        rows={rows}
-        onChange={(e) => {
-          chatStore.updateInput(e.currentTarget.value);
-          UpdateRowsFromTextArea(textAreaRef.current);
-        }}
-      />
+  ref={textAreaRef}
+  onBlur={(e) => {
+    if (e.currentTarget.value.replace(/\s/g, "").length === 0) {
+      ResetInputRows();
+    }
+  }}
+  onKeyDown={(e) => {
+-   if (e.key === "Enter" && e.shiftKey) {
+-     setTimeout(() => {
+-       UpdateRowsFromTextArea(textAreaRef.current);
+-     });
+-   }
++   if (e.key === "Enter" && e.shiftKey) {
++     // Nyline satt inn → mål høyden på nytt
++     setTimeout(() => {
++       UpdateRowsFromTextArea(textAreaRef.current);
++     }, 0);
++   }
+    onKeyDown(e, submit);
+  }}
+  onKeyUp={(e) => {
+    onKeyUp(e);
+  }}
+  value={input}
+  rows={rows}
+  onChange={(e) => {
+    chatStore.updateInput(e.currentTarget.value);
+-   UpdateRowsFromTextArea(textAreaRef.current);
+  }}
+/>
+
       <ChatInputActionArea>
         <ChatInputSecondaryActionArea>
           <AttachFile
