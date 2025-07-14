@@ -1,13 +1,5 @@
 "use client";
 
-import {
-  ResetInputRows,
-  UpdateRowsFromTextArea,
-  onKeyDown,
-  onKeyUp,
-  useChatInputDynamicHeight,
-} from "@/features/chat-page/chat-input/use-chat-input-dynamic-height";
-
 import { AttachFile } from "@/features/ui/chat/chat-input-area/attach-file";
 import {
   ChatInputActionArea,
@@ -38,7 +30,6 @@ export const ChatInput = () => {
   const { uploadButtonLabel } = useFileStore();
   const { isPlaying } = useTextToSpeech();
   const { isMicrophoneReady } = useSpeechToText();
-  const { rows } = useChatInputDynamicHeight();
 
   const submitButton = React.useRef<HTMLButtonElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -48,6 +39,15 @@ export const ChatInput = () => {
     if (formRef.current) {
       formRef.current.requestSubmit();
     }
+  };
+
+  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const ta = e.currentTarget;
+    // nullstill høyden for korrekt måling
+    ta.style.height = "auto";
+    // sett høyden til scrollHeight (inkluderer både wrap og newline)
+    ta.style.height = `${ta.scrollHeight}px`;
+    chatStore.updateInput(ta.value);
   };
 
   return (
@@ -61,26 +61,27 @@ export const ChatInput = () => {
     >
       <ChatTextInput
         ref={textAreaRef}
+        style={{
+          height: "auto",
+          overflow: "hidden",
+          overflowWrap: "break-word",
+          wordBreak: "break-all",
+          whiteSpace: "pre-wrap",
+        }}
         onBlur={(e) => {
           if (e.currentTarget.value.replace(/\s/g, "").length === 0) {
-            ResetInputRows();
+            // nullstill høyde ved tom input
+            e.currentTarget.style.height = "auto";
           }
         }}
+        onInput={handleInput}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && e.shiftKey) {
-            UpdateRowsFromTextArea(textAreaRef.current);
+          // send innlegget om Enter uten Shift
+          if (e.key === "Enter" && !e.shiftKey) {
+            submit();
           }
-          onKeyDown(e, submit);
-        }}
-        onKeyUp={(e) => {
-          onKeyUp(e);
         }}
         value={input}
-        rows={rows}
-        onChange={(e) => {
-          chatStore.updateInput(e.currentTarget.value);
-          UpdateRowsFromTextArea(textAreaRef.current);
-        }}
       />
       <ChatInputActionArea>
         <ChatInputSecondaryActionArea>
